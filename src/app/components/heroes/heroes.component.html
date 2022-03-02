@@ -17,3 +17,7 @@
     />
   </mat-form-field>
 </form>
+
+<ul *ngFor="let hero of heroes">
+  <li *ngIf="hero.name">{{ hero.name }}</li>
+</ul>
