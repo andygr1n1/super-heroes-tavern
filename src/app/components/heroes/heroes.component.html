@@ -1,23 +1,53 @@
-<h1>{{ hero.name }}</h1>
+<div class="flex flex-col gap-20">
+  <h1
+    class="font-slab self-center py-40 w-[fit-content] text-blue-900 select-none"
+  >
+    {{ title }}
+  </h1>
 
-<!-- <div>
+  <!-- <div>
   <label for="name">Hero name: </label>
   <input id="name" [(ngModel)]="hero.name" placeholder="name" />
 </div> -->
 
-<form class="example-form">
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Hero: </mat-label>
-    <input
-      type="text"
-      matInput
-      name="name"
-      [(ngModel)]="hero.name"
-      placeholder="name"
-    />
-  </mat-form-field>
-</form>
+  <!-- 
+  <form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Hero: </mat-label>
+      <input
+        type="text"
+        matInput
+        name="name"
+        [(ngModel)]="hero.name"
+        placeholder="name"
+      />
+    </mat-form-field>
+  </form> -->
 
-<ul *ngFor="let hero of heroes">
-  <li *ngIf="hero.name">{{ hero.name }}</li>
-</ul>
+  <ul
+    class="heroes-list flex flex-wrap w-[fit-content] items-center justify-center"
+  >
+    <li
+      *ngFor="let hero of heroes"
+      class="flex flex-col flex-shrink-0 flex-grow-0 flex-[23%] min-h-[600px] m-4 bg-white border border-indigo-700 rounded-md p-4"
+    >
+      <div>
+        <h4 *ngIf="hero.name" class="flex w-full cursor-default">
+          {{ hero.name }}
+        </h4>
+      </div>
+      <div class="flex flex-auto"></div>
+      <div class="flex items-center justify-center">
+        <button
+          id="basic"
+          type="button"
+          mat-flat-button
+          color="primary"
+          class="open-details-button"
+        >
+          Open details
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

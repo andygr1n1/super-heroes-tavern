@@ -11,7 +11,7 @@ import { IDbHeroSnapshotIn } from 'src/app/types/types';
 })
 export class HeroesComponent implements OnInit {
   public heroes: IDbHeroSnapshotIn[] | undefined = heroes_json;
-
+  title = 'Super heroes';
   hero: IHero = {
     id: nanoid(),
     name: 'Crystal Maiden',

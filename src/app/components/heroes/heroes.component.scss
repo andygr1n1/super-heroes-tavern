@@ -1,0 +1,6 @@
+.heroes-list {
+}
+
+.open-details-button {
+  @apply font-slab font-bold text-xl p-3 w-full transition-all hover:translate-y-[-1px] hover:shadow-lg hover:shadow-indigo-600 #{!important};
+}
