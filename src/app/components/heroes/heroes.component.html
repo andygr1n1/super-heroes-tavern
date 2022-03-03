@@ -29,12 +29,13 @@
   >
     <li
       *ngFor="let hero of heroes"
-      class="flex flex-col flex-shrink-0 flex-grow-0 flex-[23%] min-h-[600px] m-4 bg-white border border-indigo-700 rounded-md p-4"
+      class="hero-card"
+      style="background-image: url('{{ hero.photo }}')"
     >
       <div>
-        <h4 *ngIf="hero.name" class="flex w-full cursor-default">
+        <h5 *ngIf="hero.name" class="flex w-full cursor-default">
           {{ hero.name }}
-        </h4>
+        </h5>
       </div>
       <div class="flex flex-auto"></div>
       <div class="flex items-center justify-center">
@@ -43,6 +44,7 @@
           type="button"
           mat-flat-button
           color="primary"
+          (click)="openHeroDetails(hero)"
           class="open-details-button"
         >
           Open details

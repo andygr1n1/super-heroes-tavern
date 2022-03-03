@@ -7,11 +7,8 @@
     "deathDay": "2017",
     "status": "deceased",
     "actors": "Tilda Swinton",
-    "photo": "dbimage/DS_Ancient_One_Poster_cropped.png",
-    "movies": [
-      "Doctor Strange",
-      "Avengers: Endgame"
-    ]
+    "photo": "./assets/heroesImg/ancientOne.png",
+    "movies": ["Doctor Strange", "Avengers: Endgame"]
   },
   {
     "name": "Ant-Man",
@@ -21,7 +18,7 @@
     "gender": "male",
     "status": "alive",
     "actors": "Paul Rudd",
-    "photo": "dbimage/AntMan-EndgameProfile.jpg",
+    "photo": "src/local-db/dbimage/AntMan-EndgameProfile.jpg",
     "movies": [
       "Ant-Man",
       "Captain America: Civil War",
@@ -95,10 +92,7 @@
     "status": "alive",
     "actors": "Brie Larson",
     "photo": "dbimage/CapMarvel-EndgameProfile.jpg",
-    "movies": [
-      "Captain Marvel",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Captain Marvel", "Avengers: Endgame"]
   },
   {
     "name": "Daredevil",
@@ -145,10 +139,7 @@
     "status": "unknown",
     "actors": "Neal McDonough",
     "photo": "dbimage/DumDumDuganProfile.png",
-    "movies": [
-      "Captain America: The First Avenger",
-      "The Avengers"
-    ]
+    "movies": ["Captain America: The First Avenger", "The Avengers"]
   },
   {
     "name": "Edwin Jarvis",
@@ -159,9 +150,7 @@
     "status": "deceased",
     "actors": "James D'Arcy",
     "photo": "dbimage/Agent_Carter_Season_2_Promo_02.jpg",
-    "movies": [
-      "Avengers: Endgame"
-    ]
+    "movies": ["Avengers: Endgame"]
   },
   {
     "name": "Ego",
@@ -172,9 +161,7 @@
     "status": "deceased",
     "actors": "Kurt Russell",
     "photo": "dbimage/Ego_Profile%281%29.png",
-    "movies": [
-      "Guardians of the Galaxy Vol. 2"
-    ]
+    "movies": ["Guardians of the Galaxy Vol. 2"]
   },
   {
     "name": "Executioner",
@@ -186,9 +173,7 @@
     "status": "deceased",
     "actors": "Karl Urban",
     "photo": "dbimage/Skurgetheexecutionerprofile.png",
-    "movies": [
-      "Thor: Ragnarok"
-    ]
+    "movies": ["Thor: Ragnarok"]
   },
   {
     "name": "Falcon",
@@ -248,11 +233,7 @@
     "status": "alive",
     "actors": "Michael Douglas",
     "photo": "dbimage/Textless_AMATW_Character_Posters_03.jpg",
-    "movies": [
-      "Ant-Man",
-      "Ant-Man and the Wasp",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Ant-Man", "Ant-Man and the Wasp", "Avengers: Endgame"]
   },
   {
     "name": "Hawkeye",
@@ -297,10 +278,8 @@
     "deathDay": "2017",
     "status": "deceased",
     "actors": "Cate Blanchett",
-    "photo":   "dbimage/Thor_Ragnarok_Textless_Character_Posters_01.jpg",
-    "movies": [
-      "Thor: Ragnarok"
-    ]
+    "photo": "dbimage/Thor_Ragnarok_Textless_Character_Posters_01.jpg",
+    "movies": ["Thor: Ragnarok"]
   },
   {
     "name": "Helmut Zemo",
@@ -311,9 +290,7 @@
     "status": "alive",
     "actors": "Daniel Brühl",
     "photo": "dbimage/HelmutZemo-Masked.jpg",
-    "movies": [
-      "Captain America: Civil War"
-    ]
+    "movies": ["Captain America: Civil War"]
   },
   {
     "name": "Hulk",
@@ -365,11 +342,7 @@
     "status": "alive",
     "actors": "Natalie Portman",
     "photo": "dbimage/Jane_Foster_Asgardian.jpg",
-    "movies": [
-      "Thor",
-      "Thor: The Dark World",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Thor", "Thor: The Dark World", "Avengers: Endgame"]
   },
   {
     "name": "Korg",
@@ -380,10 +353,7 @@
     "status": "alive",
     "actors": "Taika Waititi",
     "photo": "dbimage/Korgas152.jpg",
-    "movies": [
-      "Thor: Ragnarok",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Thor: Ragnarok", "Avengers: Endgame"]
   },
   {
     "name": "Loki",
@@ -414,11 +384,7 @@
     "status": "alive",
     "actors": "Winston Duke",
     "photo": "dbimage/Black_Panther_Textless_Character_Poster_11.jpg",
-    "movies": [
-      "Black Panther",
-      "Avengers: Infinity War",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Black Panther", "Avengers: Infinity War", "Avengers: Endgame"]
   },
   {
     "name": "Mantis",
@@ -443,9 +409,7 @@
     "status": "deceased",
     "actors": "Jake Gyllenhaal",
     "photo": "dbimage/Mysterio-ChinesePromotional.png",
-    "movies": [
-      "Spider-Man: Far From Home"
-    ]
+    "movies": ["Spider-Man: Far From Home"]
   },
   {
     "name": "Odin",
@@ -457,11 +421,7 @@
     "status": "deceased",
     "actors": "Anthony Hopkins",
     "photo": "dbimage/Thor_Ragnarok_Textless_Character_Posters_08.jpg",
-    "movies": [
-      "Thor",
-      "Thor: The Dark World",
-      "Thor: Ragnarok"
-    ]
+    "movies": ["Thor", "Thor: The Dark World", "Thor: Ragnarok"]
   },
   {
     "name": "Peggy Carter",
@@ -527,9 +487,7 @@
     "status": "deceased",
     "actors": "Aaron Taylor-Johnson",
     "photo": "dbimage/Qckslvr.jpg",
-    "movies": [
-      "Avengers: Age of Ultron"
-    ]
+    "movies": ["Avengers: Age of Ultron"]
   },
   {
     "name": "Red Skull",
@@ -571,11 +529,7 @@
     "status": "alive",
     "actors": "Letitia Wright",
     "photo": "dbimage/Shuri_AIW_Profile.jpg",
-    "movies": [
-      "Black Panther",
-      "Avengers: Infinity War",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Black Panther", "Avengers: Infinity War", "Avengers: Endgame"]
   },
   {
     "name": "Sif",
@@ -586,10 +540,7 @@
     "status": "alive",
     "actors": "Jaimie Alexander",
     "photo": "dbimage/Sifwhoyoureallyare.jpg",
-    "movies": [
-      "Thor",
-      "Thor: The Dark World"
-    ]
+    "movies": ["Thor", "Thor: The Dark World"]
   },
   {
     "name": "Spider-Man",
@@ -673,10 +624,7 @@
     "status": "alive",
     "actors": "Tessa Thompson",
     "photo": "dbimage/Thor_Ragnarok_Textless_Character_Posters_05.jpg",
-    "movies": [
-      "Thor: Ragnarok",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Thor: Ragnarok", "Avengers: Endgame"]
   },
   {
     "name": "Vision",
@@ -703,9 +651,7 @@
     "status": "alive",
     "actors": "Michael Keaton",
     "photo": "dbimage/Vulture.jpg",
-    "movies": [
-      "Spider-Man: Homecoming"
-    ]
+    "movies": ["Spider-Man: Homecoming"]
   },
   {
     "name": "War Machine",
@@ -737,11 +683,7 @@
     "status": "alive",
     "actors": "Evangeline Lilly",
     "photo": "dbimage/Textless_AMATW_Character_Posters_02.jpg",
-    "movies": [
-      "Ant-Man",
-      "Ant-Man and the Wasp",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Ant-Man", "Ant-Man and the Wasp", "Avengers: Endgame"]
   },
   {
     "name": "Winter Soldier",
@@ -770,11 +712,7 @@
     "status": "alive",
     "actors": "Benedict Wong",
     "photo": "dbimage/Wong_AIW_Profile.jpg",
-    "movies": [
-      "Doctor Strange",
-      "Avengers: Infinity War",
-      "Avengers: Endgame"
-    ]
+    "movies": ["Doctor Strange", "Avengers: Infinity War", "Avengers: Endgame"]
   },
   {
     "name": "Yondu Udonta",
@@ -785,9 +723,6 @@
     "status": "deceased",
     "actors": "Michael Rooker",
     "photo": "dbimage/Yondu_Profile%281%29.png",
-    "movies": [
-      "Guardians of the Galaxy",
-      "Guardians of the Galaxy Vol. 2"
-    ]
+    "movies": ["Guardians of the Galaxy", "Guardians of the Galaxy Vol. 2"]
   }
 ]

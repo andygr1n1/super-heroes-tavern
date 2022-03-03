@@ -2,5 +2,9 @@
 }
 
 .open-details-button {
-  @apply font-slab font-bold text-xl p-3 w-full transition-all hover:translate-y-[-1px] hover:shadow-lg hover:shadow-indigo-600 #{!important};
+  @apply font-slab font-bold text-xl p-3 w-full transition-all hover:translate-y-[-1px] hover:shadow-2xl hover:shadow-indigo-600 #{!important};
+}
+
+.hero-card {
+  @apply flex flex-col flex-shrink-0 flex-grow-0 flex-[23%] min-h-[600px] m-4 border bg-indigo-900 border-indigo-700 rounded-md p-4 bg-no-repeat bg-cover bg-center;
 }

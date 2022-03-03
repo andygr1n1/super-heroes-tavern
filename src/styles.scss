@@ -29,7 +29,11 @@
     @apply text-9xl;
   }
 
-  h4 {
+  h3 {
+    @apply text-5xl;
+  }
+
+  h5 {
     @apply text-xl;
   }
 }
