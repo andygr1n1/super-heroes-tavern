@@ -12,7 +12,7 @@ import { HeroDetailsComponent } from '../hero-details/hero-details.component';
   styleUrls: ['./heroes.component.scss'],
 })
 export class HeroesComponent implements OnInit {
-  public heroes: IDbHeroSnapshotIn[] | undefined = heroes_json;
+  public heroes: IDbHeroSnapshotIn[] = heroes_json;
   title = 'Super heroes';
   hero: IHero = {
     id: nanoid(),

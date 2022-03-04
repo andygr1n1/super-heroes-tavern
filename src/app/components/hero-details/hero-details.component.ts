@@ -8,18 +8,25 @@ import { IDbHeroSnapshotIn } from 'src/app/types/types';
   styleUrls: ['./hero-details.component.scss'],
 })
 export class HeroDetailsComponent implements OnInit {
+  edit_name = false;
+  // heroname = this.data.hero.name ?? '';
+
   constructor(
     public dialogRef: MatDialogRef<HeroDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { hero: IDbHeroSnapshotIn }
   ) {}
 
-  get hero(): IDbHeroSnapshotIn | undefined {
+  get hero(): IDbHeroSnapshotIn {
     if (!this.data) {
       console.error('HeroDetailsComponent error');
-      return;
+      return { name: '' };
     }
 
     return this.data.hero;
+  }
+
+  toggleEditName(): void {
+    this.edit_name = !this.edit_name;
   }
 
   onNoClick(): void {
