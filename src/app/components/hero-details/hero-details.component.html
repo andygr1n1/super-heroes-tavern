@@ -1,51 +1,63 @@
-<div>
+<div class="h-full">
   <div>
     <!-- <div>
   <label for="name">Hero name: </label>
   <input id="name" [(ngModel)]="hero.name" placeholder="name" />
 </div> -->
 
-    <form
-      *ngIf="edit_name; else heroNameBlock"
-      class="edit-name-form w-[fit-content]"
-    >
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Name: </mat-label>
-        <input
-          type="text"
-          matInput
-          name="name"
-          [(ngModel)]="hero.name"
-          placeholder="name"
-        />
-      </mat-form-field>
-      <button
-        mat-icon-button
-        color="primary"
-        aria-label="Example icon button with a home icon"
-        class="flex justify-center items-center !mb-4 cursor-pointer"
-        (click)="saveName()"
+    <div class="flex justify-between items-center">
+      <form
+        *ngIf="edit_name; else heroNameBlock"
+        class="edit-name-form w-[fit-content]"
       >
-        <mat-icon class="text-green-500">done_outline</mat-icon>
-      </button>
-    </form>
-    <ng-template #heroNameBlock>
-      <div class="flex items-center justify-items-start gap-5 h-[81px]">
-        <h3>{{ hero?.name }}</h3>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Name: </mat-label>
+          <input
+            type="text"
+            matInput
+            name="name"
+            [(ngModel)]="hero.name"
+            placeholder="name"
+          />
+        </mat-form-field>
         <button
           mat-icon-button
           color="primary"
           aria-label="Example icon button with a home icon"
-          class="!flex !justify-center !items-center !mt-2 cursor-pointer"
-        
-          (click)="toggleEditName()"
+          class="flex justify-center items-center !mb-4 cursor-pointer"
+          (click)="saveName()"
         >
-          <mat-icon class="text-green-500 mb-1">edit_outline</mat-icon>
+          <mat-icon class="text-green-500">done_outline</mat-icon>
         </button>
-      </div>
-    </ng-template>
+      </form>
+      <ng-template #heroNameBlock>
+        <div class="flex items-center justify-items-start gap-5 h-[81px]">
+          <h3>{{ hero?.name }}</h3>
+          <button
+            title="edit name"
+            mat-icon-button
+            color="primary"
+            aria-label="Example icon button with a home icon"
+            class="!flex !justify-center !items-center !mt-2 cursor-pointer"
+            (click)="toggleEditName()"
+          >
+            <mat-icon class="text-green-500 mb-1">edit_outline</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+      <!-- <button mat-raised-button color="warn" class="!my-4">Warn</button> -->
+      <button
+        title="close window"
+        mat-mini-fab
+        aria-label="Example icon button with a filter list icon"
+        class="!bg-indigo-700"
+        (click)="onClose()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
   </div>
-  <div class="flex">
+  <div class="flex flex-auto py-6">
     <div class="flex flex-auto flex-col py-10">
       <div *ngIf="hero?.species">{{ hero?.species }}</div>
       <div *ngIf="hero?.gender">{{ hero?.gender }}</div>
@@ -59,16 +71,23 @@
 
     <div *ngIf="hero?.photo">
       <img
-        [width]="450"
+        [width]="400"
         [title]="hero?.name"
         src="{{ hero?.photo }}"
         alt="{{ hero?.photo }}"
-        class="select-none shadow-2xl"
+        class="select-none shadow-2xl rounded-md"
       />
     </div>
   </div>
-  <div>
+  <div class="flex flex-shrink-0 flex-grow-0">
     <!-- footer close modal function -->
+    <button
+      title="delete hero"
+      mat-raised-button
+      class="bg-red-500 h-14 w-32 text-white"
+    >
+      Delete hero
+    </button>
   </div>
 </div>
 

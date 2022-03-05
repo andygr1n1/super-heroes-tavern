@@ -36,7 +36,7 @@ export class HeroDetailsComponent implements OnInit {
     this.heroService.updateHero(this.data.hero).subscribe();
   }
 
-  onNoClick(): void {
+  onClose(): void {
     this.dialogRef.close();
   }
 
