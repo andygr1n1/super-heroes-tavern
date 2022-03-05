@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/in-memory-data.service';
 import { CreateHeroComponent } from './components/create-hero/create-hero.component';
+import { HeroSearchComponent } from './components/hero-search/hero-search.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CreateHeroComponent } from './components/create-hero/create-hero.compon
     HeroDetailsComponent,
     DashboardComponent,
     CreateHeroComponent,
+    HeroSearchComponent,
   ],
   imports: [
     BrowserModule,

@@ -58,13 +58,31 @@ export class HeroService {
   deleteHero(id: string): Observable<IDbHeroSnapshotIn> {
     console.log('id', id);
     const url = `${this.heroesUrl}/${id}`;
-    this.heroes = this.heroes.filter((h) => h.id !== id);
+    // this.heroes = this.heroes.filter((h) => h.id !== id);
     return this.http.delete<IDbHeroSnapshotIn>(url, this.httpOptions).pipe(
       tap((hero: IDbHeroSnapshotIn) => console.log('deleted hero:', hero)),
       catchError(
         this.handleError<IDbHeroSnapshotIn>('deleteHero', { id: '', name: '' })
       )
     );
+  }
+
+  /* GET heroes whose name contains search term */
+  searchHeroes(term: string): Observable<IDbHeroSnapshotIn[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http
+      .get<IDbHeroSnapshotIn[]>(`${this.heroesUrl}/?name=${term}`)
+      .pipe(
+        tap((x) =>
+          x.length
+            ? console.log(`found heroes matching "${term}"`)
+            : console.log(`no heroes matching "${term}"`)
+        ),
+        catchError(this.handleError<IDbHeroSnapshotIn[]>('searchHeroes', []))
+      );
   }
 
   private handleError<T>(operation = 'operation', result: T) {

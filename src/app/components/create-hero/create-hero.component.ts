@@ -25,7 +25,7 @@ export class CreateHeroComponent implements OnInit {
       name: this.name.trim(),
     };
 
-    this.heroService.addHero(newHero).subscribe()
+    this.heroService.addHero(newHero).subscribe();
   }
 
   ngOnInit(): void {}
