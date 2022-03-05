@@ -9,12 +9,13 @@ import { IDbHeroSnapshotIn } from 'src/app/types/types';
   styleUrls: ['./create-hero.component.scss'],
 })
 export class CreateHeroComponent implements OnInit {
+  logo_title = 'Hero facktory';
   name = '';
+  gender = '';
 
   constructor(private heroService: HeroService) {}
 
   addHero(): void {
-    console.log('hero added');
     if (!this.name) {
       alert('name is empty');
       return;
@@ -23,9 +24,25 @@ export class CreateHeroComponent implements OnInit {
     const newHero: IDbHeroSnapshotIn = {
       id: nanoid(),
       name: this.name.trim(),
+      gender: this.gender.trim(),
     };
 
     this.heroService.addHero(newHero).subscribe();
+
+    console.log('hero added');
+  }
+
+  clearData(): void {
+    this.logo_title = '';
+    this.name = '';
+    this.gender = '';
+  }
+
+  nameValueChange(value: string) {
+    this.name = value;
+  }
+  genderValueChange(value: string) {
+    this.gender = value;
   }
 
   ngOnInit(): void {}

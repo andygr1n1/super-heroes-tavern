@@ -13,7 +13,7 @@ import { HeroService } from 'src/app/services/hero.service';
   styleUrls: ['./heroes.component.scss'],
 })
 export class HeroesComponent implements OnInit {
-  title = 'Super heroes';
+  logo_title = 'Super heroes';
 
   constructor(public dialog: MatDialog, private heroService: HeroService) {}
 

@@ -1,23 +1,13 @@
-<div class="flex flex-col bg-white">
-  <form class="w-[fit-content]">
-    <mat-form-field class="" appearance="fill">
-      <mat-label>Name: </mat-label>
-      <input
-        type="text"
-        matInput
-        name="Name"
-        [(ngModel)]="name"
-        placeholder="Name"
-      />
-    </mat-form-field>
-  </form>
+<app-component-logo [logo_title]="logo_title"></app-component-logo>
+<div class="flex flex-col bg-white mx-10 p-10 h-full rounded-md">
+  <app-create-hero-input
+    [inputTitle]="'Name'"
+    (bind_toChange)="nameValueChange($event)"
+  ></app-create-hero-input>
+   <app-create-hero-input
+    [inputTitle]="'Gender'"
+    (bind_toChange)="genderValueChange($event)"
+  ></app-create-hero-input>
 
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button
-    type="button"
-    class="add-button"
-    (click)="addHero()"
-  >
-    Add hero
-  </button>
+  <button type="button" class="add-button" (click)="addHero()">Add hero</button>
 </div>

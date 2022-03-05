@@ -1,31 +1,7 @@
-<div class="flex flex-col gap-20">
-  <h1
-    class="font-slab self-center py-40 w-[fit-content] text-blue-900 select-none"
-  >
-    {{ title }}
-  </h1>
-
-  <!-- <div>
-  <label for="name">Hero name: </label>
-  <input id="name" [(ngModel)]="hero.name" placeholder="name" />
-</div> -->
-
-  <!-- 
-  <form class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Hero: </mat-label>
-      <input
-        type="text"
-        matInput
-        name="name"
-        [(ngModel)]="hero.name"
-        placeholder="name"
-      />
-    </mat-form-field>
-  </form> -->
-
+<div class="flex flex-col gap-20 items-center">
+  <app-component-logo [logo_title]="logo_title"></app-component-logo>
   <ul
-    class="heroes-list flex flex-wrap w-[fit-content] items-center justify-center"
+    class="heroes-list flex flex-wrap w-full items-center justify-center"
   >
     <li
       *ngFor="let hero of heroes"
@@ -38,7 +14,7 @@
       </div>
       <div class="flex flex-auto"></div>
       <div
-        class="flex items-center justify-center bg-indigo-800 text-white h-14 rounded text-xl font-bold"
+        class="flex items-center justify-center bg-blue-900 text-white h-14 rounded text-base font-lato"
       >
         {{ hero.name }}
       </div>

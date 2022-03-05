@@ -14,11 +14,6 @@ export class HeroService {
 
   private heroesUrl = 'api/heroes_collection';
 
-  // getHeroes(): Observable<IDbHeroSnapshotIn[]> {
-  //   const heroes = of(heroes_json);
-  //   return heroes;
-  // }
-
   getHeroes(): void {
     const heroes_data = this.http
       .get<IDbHeroSnapshotIn[]>(this.heroesUrl)

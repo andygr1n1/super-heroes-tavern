@@ -18,6 +18,8 @@ import { InMemoryDataService } from './services/in-memory-data.service';
 import { CreateHeroComponent } from './components/create-hero/create-hero.component';
 import { HeroSearchComponent } from './components/hero-search/hero-search.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ComponentLogoComponent } from './mini-components/component-logo/component-logo.component';
+import { CreateHeroInputComponent } from './mini-components/create-hero-input/create-hero-input.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     DashboardComponent,
     CreateHeroComponent,
     HeroSearchComponent,
+    ComponentLogoComponent,
+    CreateHeroInputComponent,
   ],
   imports: [
     BrowserModule,
