@@ -13,7 +13,6 @@ import { HeroService } from 'src/app/services/hero.service';
   styleUrls: ['./heroes.component.scss'],
 })
 export class HeroesComponent implements OnInit {
-  public heroes: IDbHeroSnapshotIn[] = [];
   title = 'Super heroes';
 
   constructor(public dialog: MatDialog, private heroService: HeroService) {}
@@ -31,15 +30,15 @@ export class HeroesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
-      // this.animal = result;
     });
   }
 
-  getHeroes(): void {
-    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
+  get heroes(): IDbHeroSnapshotIn[] {
+    return this.heroService.heroes;
   }
 
   ngOnInit(): void {
-    this.getHeroes();
+    this.heroService.getHeroes();
+    console.log('this.heroService.heroes', this.heroService.heroes);
   }
 }

@@ -8,6 +8,8 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class HeroService {
+  public heroes: IDbHeroSnapshotIn[] = [];
+
   constructor(private http: HttpClient) {}
 
   private heroesUrl = 'api/heroes_collection';
@@ -16,10 +18,15 @@ export class HeroService {
   //   const heroes = of(heroes_json);
   //   return heroes;
   // }
-  getHeroes(): Observable<IDbHeroSnapshotIn[]> {
-    return this.http
+
+  getHeroes(): void {
+    const heroes_data = this.http
       .get<IDbHeroSnapshotIn[]>(this.heroesUrl)
       .pipe(catchError(this.handleError<IDbHeroSnapshotIn[]>('getHeroes', [])));
+
+    heroes_data.subscribe((heroes_data) => {
+      this.heroes = heroes_data;
+    });
   }
 
   httpOptions = {
@@ -42,8 +49,22 @@ export class HeroService {
         tap((newHero: IDbHeroSnapshotIn) =>
           console.log(`added hero w/ id=${newHero.id}`)
         ),
-        catchError(this.handleError<IDbHeroSnapshotIn>('addHero', { id: '', name: ''}))
+        catchError(
+          this.handleError<IDbHeroSnapshotIn>('addHero', { id: '', name: '' })
+        )
       );
+  }
+
+  deleteHero(id: string): Observable<IDbHeroSnapshotIn> {
+    console.log('id', id);
+    const url = `${this.heroesUrl}/${id}`;
+    this.heroes = this.heroes.filter((h) => h.id !== id);
+    return this.http.delete<IDbHeroSnapshotIn>(url, this.httpOptions).pipe(
+      tap((hero: IDbHeroSnapshotIn) => console.log('deleted hero:', hero)),
+      catchError(
+        this.handleError<IDbHeroSnapshotIn>('deleteHero', { id: '', name: '' })
+      )
+    );
   }
 
   private handleError<T>(operation = 'operation', result: T) {

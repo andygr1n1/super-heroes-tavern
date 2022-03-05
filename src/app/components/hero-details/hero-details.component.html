@@ -57,6 +57,7 @@
       </button>
     </div>
   </div>
+  <!-- body -->
   <div class="flex flex-auto py-6">
     <div class="flex flex-auto flex-col py-10">
       <div *ngIf="hero?.species">{{ hero?.species }}</div>
@@ -72,32 +73,22 @@
     <div *ngIf="hero?.photo">
       <img
         [width]="400"
-        [title]="hero?.name"
-        src="{{ hero?.photo }}"
-        alt="{{ hero?.photo }}"
+        [title]="hero.name"
+        src="{{ hero.photo }}"
+        alt="{{ hero.photo }}"
         class="select-none shadow-2xl rounded-md"
       />
     </div>
   </div>
+  <!-- footer -->
   <div class="flex flex-shrink-0 flex-grow-0">
-    <!-- footer close modal function -->
     <button
       title="delete hero"
       mat-raised-button
       class="bg-red-500 h-14 w-32 text-white"
+      (click)="deleteHero(hero.id)"
     >
       Delete hero
     </button>
   </div>
 </div>
-
-<!-- name: string;
-  species?: string;
-  gender?: string;
-  birthDay?: string;
-  deathDay?: string;
-  status?: string;
-  actors?: string;
-  citizenship?: string;
-  photo?: string;
-  movies?: string[]; -->
