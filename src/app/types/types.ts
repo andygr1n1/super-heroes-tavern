@@ -1,4 +1,5 @@
 export interface IDbHeroSnapshotIn {
+  id: string;
   name: string;
   species?: string;
   gender?: string;

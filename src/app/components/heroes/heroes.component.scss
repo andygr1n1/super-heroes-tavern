@@ -7,7 +7,7 @@
 
 .hero-card {
   @apply flex flex-col flex-shrink-0 flex-grow-0 flex-[23%] 
-  min-h-[600px] m-4 border bg-indigo-900
+  min-h-[600px] min-w-[400px] m-4 border bg-indigo-900
   border-indigo-700 rounded-md
   bg-no-repeat bg-cover bg-center
   cursor-pointer

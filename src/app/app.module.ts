@@ -12,6 +12,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './services/in-memory-data.service';
+import { CreateHeroComponent } from './components/create-hero/create-hero.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     CapitalizePipe,
     HeroDetailsComponent,
     DashboardComponent,
+    CreateHeroComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +35,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
+    HttpClientModule,
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

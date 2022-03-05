@@ -1,0 +1,23 @@
+<div class="flex flex-col bg-white">
+  <form class="w-[fit-content]">
+    <mat-form-field class="" appearance="fill">
+      <mat-label>Name: </mat-label>
+      <input
+        type="text"
+        matInput
+        name="Name"
+        [(ngModel)]="name"
+        placeholder="Name"
+      />
+    </mat-form-field>
+  </form>
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button
+    type="button"
+    class="add-button"
+    (click)="addHero()"
+  >
+    Add hero
+  </button>
+</div>
