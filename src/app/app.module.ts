@@ -17,6 +17,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/in-memory-data.service';
 import { CreateHeroComponent } from './components/create-hero/create-hero.component';
 import { HeroSearchComponent } from './components/hero-search/hero-search.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { HeroSearchComponent } from './components/hero-search/hero-search.compon
     MatDialogModule,
     MatIconModule,
     HttpClientModule,
+    MatToolbarModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
