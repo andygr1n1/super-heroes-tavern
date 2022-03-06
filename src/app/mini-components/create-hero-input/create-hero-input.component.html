@@ -1,0 +1,11 @@
+<mat-form-field class="" appearance="fill">
+  <mat-label>{{ inputTitle }}: </mat-label>
+  <input
+    type="text"
+    matInput
+    [name]="inputTitle"
+    [(ngModel)]="bind_to"
+    [placeholder]="inputTitle"
+    (ngModelChange)="bind_toChange.emit(bind_to)"
+  />
+</mat-form-field>

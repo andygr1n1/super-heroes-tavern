@@ -1,0 +1,94 @@
+<div class="h-full">
+  <div>
+    <!-- <div>
+  <label for="name">Hero name: </label>
+  <input id="name" [(ngModel)]="hero.name" placeholder="name" />
+</div> -->
+
+    <div class="flex justify-between items-center">
+      <form
+        *ngIf="edit_name; else heroNameBlock"
+        class="edit-name-form w-[fit-content]"
+      >
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Name: </mat-label>
+          <input
+            type="text"
+            matInput
+            name="name"
+            [(ngModel)]="hero.name"
+            placeholder="name"
+          />
+        </mat-form-field>
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Example icon button with a home icon"
+          class="flex justify-center items-center !mb-4 cursor-pointer"
+          (click)="saveName()"
+        >
+          <mat-icon class="text-green-500">done_outline</mat-icon>
+        </button>
+      </form>
+      <ng-template #heroNameBlock>
+        <div class="flex items-center justify-items-start gap-5 h-[81px]">
+          <h3>{{ hero?.name }}</h3>
+          <button
+            title="edit name"
+            mat-icon-button
+            color="primary"
+            aria-label="Example icon button with a home icon"
+            class="!flex !justify-center !items-center !mt-2 cursor-pointer"
+            (click)="toggleEditName()"
+          >
+            <mat-icon class="text-green-500 mb-1">edit_outline</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+      <!-- <button mat-raised-button color="warn" class="!my-4">Warn</button> -->
+      <button
+        title="close window"
+        mat-mini-fab
+        aria-label="Example icon button with a filter list icon"
+        class="!bg-indigo-700"
+        (click)="onClose()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- body -->
+  <div class="flex flex-auto py-6">
+    <div class="flex flex-auto flex-col py-10">
+      <div *ngIf="hero?.species">{{ hero?.species }}</div>
+      <div *ngIf="hero?.gender">{{ hero?.gender }}</div>
+      <div *ngIf="hero?.birthDay">{{ hero?.birthDay }}</div>
+      <div *ngIf="hero?.deathDay">{{ hero?.deathDay }}</div>
+      <div *ngIf="hero?.status">{{ hero?.status }}</div>
+      <div *ngIf="hero?.actors">{{ hero?.actors }}</div>
+      <div *ngIf="hero?.citizenship">{{ hero?.citizenship }}</div>
+      <div *ngIf="hero?.movies">{{ hero?.movies }}</div>
+    </div>
+
+    <div *ngIf="hero?.photo">
+      <img
+        [width]="400"
+        [title]="hero.name"
+        src="{{ hero.photo }}"
+        alt="{{ hero.photo }}"
+        class="select-none shadow-2xl rounded-md"
+      />
+    </div>
+  </div>
+  <!-- footer -->
+  <div class="flex flex-shrink-0 flex-grow-0">
+    <button
+      title="delete hero"
+      mat-raised-button
+      class="bg-red-500 h-14 w-32 text-white"
+      (click)="deleteHero(hero.id)"
+    >
+      Delete hero
+    </button>
+  </div>
+</div>

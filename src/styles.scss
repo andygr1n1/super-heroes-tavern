@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-lato m-0 h-full;
+
+    background: #396afc; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #396afc,
+      #2948ff
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #396afc,
+      #2948ff
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-slab font-bold;
+  }
+
+  h1 {
+    @apply text-9xl;
+  }
+
+  h3 {
+    @apply text-5xl;
+  }
+
+  h5 {
+    @apply text-xl;
+  }
+}
+
+@layer components {
+  .nav-active {
+    @apply bg-blue-900 text-white;
+  }
+}

@@ -1,0 +1,23 @@
+<div class="flex flex-col gap-20 items-center">
+  <app-component-logo [logo_title]="logo_title"></app-component-logo>
+  <ul
+    class="heroes-list flex flex-wrap w-full items-center justify-center"
+  >
+    <li
+      *ngFor="let hero of heroes"
+      class="hero-card"
+      style="background-image: url('{{ hero.photo }}')"
+      (click)="openHeroDetails(hero)"
+    >
+      <div>
+        <h5 *ngIf="hero.name" class="flex w-full cursor-default"></h5>
+      </div>
+      <div class="flex flex-auto"></div>
+      <div
+        class="flex items-center justify-center bg-blue-900 text-white h-14 rounded text-base font-lato"
+      >
+        {{ hero.name }}
+      </div>
+    </li>
+  </ul>
+</div>

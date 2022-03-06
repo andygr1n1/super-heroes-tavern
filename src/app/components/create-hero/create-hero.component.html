@@ -1,0 +1,35 @@
+<app-component-logo [logo_title]="logo_title"></app-component-logo>
+<div class="flex flex-col bg-white m-10 p-10 h-full rounded-md">
+  <div class="flex gap-10 justify-center">
+    <div class="flex flex-col">
+      <app-create-hero-input
+        [inputTitle]="'Name'"
+        (bind_toChange)="nameValueChange($event)"
+      ></app-create-hero-input>
+
+      <app-create-hero-input
+        [inputTitle]="'Gender'"
+        (bind_toChange)="genderValueChange($event)"
+      ></app-create-hero-input>
+
+      <app-create-hero-input
+        [inputTitle]="'Species'"
+        (bind_toChange)="speciesValueChange($event)"
+      ></app-create-hero-input>
+    </div>
+
+    <input class="hidden" type="file" (click)="log($event)" #fileUpload />
+    <div
+      (click)="fileUpload.click()"
+      class="flex flex-col gap-10 items-center justify-center min-h-[500px] min-w-[350px] border border-blue-900 rounded-md shadow-2xl cursor-pointer"
+    >
+      <button mat-mini-fab color="primary" class="upload-btn !bg-blue-900">
+        <mat-icon class="">attach_file</mat-icon>
+      </button>
+
+      {{ fileName || "No file uploaded yet." }}
+    </div>
+  </div>
+
+  <button type="button" class="add-button" (click)="addHero()">Add hero</button>
+</div>
