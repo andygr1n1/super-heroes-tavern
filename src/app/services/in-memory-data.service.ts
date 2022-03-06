@@ -8,6 +8,7 @@ export class InMemoryDataService {
     const heroes_collection = [
       {
         id: '1',
+        rating: '0',
         name: 'Ancient One',
         species: 'Human',
         gender: 'Female',

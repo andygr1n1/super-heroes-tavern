@@ -9,9 +9,12 @@ import { IDbHeroSnapshotIn } from 'src/app/types/types';
   styleUrls: ['./create-hero.component.scss'],
 })
 export class CreateHeroComponent implements OnInit {
+  fileName = '';
+
   logo_title = 'Hero facktory';
   name = '';
   gender = '';
+  species = '';
 
   constructor(private heroService: HeroService) {}
 
@@ -43,6 +46,16 @@ export class CreateHeroComponent implements OnInit {
   }
   genderValueChange(value: string) {
     this.gender = value;
+  }
+
+  speciesValueChange(value: string) {
+    this.species = value;
+  }
+
+  log(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    console.log(files);
   }
 
   ngOnInit(): void {}
