@@ -1,8 +1,10 @@
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { nanoid } from 'nanoid';
+import { finalize, Subscription } from 'rxjs';
 import { HeroService } from 'src/app/services/hero.service';
 import { IDbHeroSnapshotIn } from 'src/app/types/types';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-create-hero',
   templateUrl: './create-hero.component.html',
@@ -10,17 +12,29 @@ import { IDbHeroSnapshotIn } from 'src/app/types/types';
 })
 export class CreateHeroComponent implements OnInit {
   fileName = '';
+  uploaded_img = '';
+  uploadProgress: number | null = null;
+  uploadSub: Subscription | undefined;
 
   logo_title = 'Hero facktory';
   name = '';
   gender = '';
   species = '';
 
-  constructor(private heroService: HeroService) {}
+  constructor(private heroService: HeroService, private http: HttpClient) {}
+
+  cancelUpload() {
+    this.uploadSub?.unsubscribe();
+    this.reset();
+  }
+
+  reset() {
+    this.uploadProgress = null;
+    this.uploadSub = undefined;
+  }
 
   addHero(): void {
     if (!this.name) {
-      alert('name is empty');
       return;
     }
 
@@ -28,9 +42,13 @@ export class CreateHeroComponent implements OnInit {
       id: nanoid(),
       name: this.name.trim(),
       gender: this.gender.trim(),
+      species: this.species.trim(),
+      photo: this.uploaded_img,
     };
 
-    this.heroService.addHero(newHero).subscribe();
+    // this.heroService.addHero(newHero).subscribe();
+    this.heroService.addHero(newHero);
+    this.clearData();
 
     console.log('hero added');
   }
@@ -39,6 +57,8 @@ export class CreateHeroComponent implements OnInit {
     this.logo_title = '';
     this.name = '';
     this.gender = '';
+    this.species = '';
+    this.uploaded_img = '';
   }
 
   nameValueChange(value: string) {
@@ -52,10 +72,43 @@ export class CreateHeroComponent implements OnInit {
     this.species = value;
   }
 
-  log(event: Event) {
+  onFileSelect(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files as FileList;
-    console.log(files);
+    const file: File = files?.[0];
+
+    if (file) {
+      this.fileName = file.name;
+
+      const formData = new FormData();
+
+      formData.append('thumbnail', file);
+
+      const upload$ = this.http
+        .post(environment.SRV_NODE_UPLOAD_HERO_IMAGE, formData, {
+          reportProgress: true,
+          observe: 'events',
+        })
+        .pipe(finalize(() => this.reset()));
+
+      this.uploadSub = upload$.subscribe((event) => {
+        if (event.type === 4 && event.body) {
+          const event_data: HttpResponse<{
+            data?: { name: string };
+          }> | null = event;
+
+          if (event_data?.body?.data?.name) {
+            const name = event_data?.body?.data?.name;
+            this.uploaded_img = `${environment.SRV_NODE}${name}`;
+          }
+        }
+        if (event.type == HttpEventType.UploadProgress) {
+          this.uploadProgress = Math.round(
+            100 * (event.loaded / (event.total ?? 1))
+          );
+        }
+      });
+    }
   }
 
   ngOnInit(): void {}

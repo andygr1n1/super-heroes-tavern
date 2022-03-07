@@ -3,6 +3,19 @@ import { IDbHeroSnapshotIn } from '../types/types';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { Apollo, gql } from 'apollo-angular';
+
+const GET_HEROES = gql`
+  {
+    hero {
+      id
+      name
+      gender
+      species
+      photo
+    }
+  }
+`;
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +23,25 @@ import { Observable, of } from 'rxjs';
 export class HeroService {
   public heroes: IDbHeroSnapshotIn[] = [];
 
-  constructor(private http: HttpClient) {}
+  public hasura_heroes: Observable<any> | undefined;
 
-  private heroesUrl = 'api/heroes_collection';
+  constructor(private http: HttpClient, private apollo: Apollo) {}
+
+  private heroesUrl = 'http://localhost:8088/v1/graphql';
+
+  getHasuraHeroes(): void {
+    const hasuraHeres = this.apollo
+      .watchQuery({
+        query: GET_HEROES,
+      })
+      .valueChanges.subscribe(({ data, loading }) => {
+        console.log('loading', loading);
+        console.log('data', data);
+      });
+
+    console.log('hasuraHeres', hasuraHeres);
+    console.log('hasuraHeres');
+  }
 
   getHeroes(): void {
     const heroes_data = this.http
@@ -20,7 +49,8 @@ export class HeroService {
       .pipe(catchError(this.handleError<IDbHeroSnapshotIn[]>('getHeroes', [])));
 
     heroes_data.subscribe((heroes_data) => {
-      this.heroes = heroes_data;
+      console.log('heroes_data', heroes_data);
+      // this.heroes = heroes_data;
     });
   }
 
@@ -37,17 +67,18 @@ export class HeroService {
     return response;
   }
 
-  addHero(hero: IDbHeroSnapshotIn): Observable<IDbHeroSnapshotIn> {
-    return this.http
-      .post<IDbHeroSnapshotIn>(this.heroesUrl, hero, this.httpOptions)
-      .pipe(
-        tap((newHero: IDbHeroSnapshotIn) =>
-          console.log(`added hero w/ id=${newHero.id}`)
-        ),
-        catchError(
-          this.handleError<IDbHeroSnapshotIn>('addHero', { id: '', name: '' })
-        )
-      );
+  addHero(hero: IDbHeroSnapshotIn): void /* Observable<IDbHeroSnapshotIn> */ {
+    this.heroes.push(hero);
+    // return this.http
+    //   .post<IDbHeroSnapshotIn>(this.heroesUrl, hero, this.httpOptions)
+    //   .pipe(
+    //     tap((newHero: IDbHeroSnapshotIn) =>
+    //       console.log(`added hero w/ id=${newHero.id}`)
+    //     ),
+    //     catchError(
+    //       this.handleError<IDbHeroSnapshotIn>('addHero', { id: '', name: '' })
+    //     )
+    //   );
   }
 
   deleteHero(id: string): Observable<IDbHeroSnapshotIn> {
