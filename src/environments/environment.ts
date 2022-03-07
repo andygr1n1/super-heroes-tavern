@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  SRV_NODE: 'http://localhost:6789/',
+  SRV_NODE_UPLOAD_HERO_IMAGE: 'http://localhost:6789/api/upload-hero-image',
 };
 
 /*

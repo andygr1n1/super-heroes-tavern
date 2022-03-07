@@ -37,17 +37,18 @@ export class HeroService {
     return response;
   }
 
-  addHero(hero: IDbHeroSnapshotIn): Observable<IDbHeroSnapshotIn> {
-    return this.http
-      .post<IDbHeroSnapshotIn>(this.heroesUrl, hero, this.httpOptions)
-      .pipe(
-        tap((newHero: IDbHeroSnapshotIn) =>
-          console.log(`added hero w/ id=${newHero.id}`)
-        ),
-        catchError(
-          this.handleError<IDbHeroSnapshotIn>('addHero', { id: '', name: '' })
-        )
-      );
+  addHero(hero: IDbHeroSnapshotIn): void /* Observable<IDbHeroSnapshotIn> */ {
+    this.heroes.push(hero);
+    // return this.http
+    //   .post<IDbHeroSnapshotIn>(this.heroesUrl, hero, this.httpOptions)
+    //   .pipe(
+    //     tap((newHero: IDbHeroSnapshotIn) =>
+    //       console.log(`added hero w/ id=${newHero.id}`)
+    //     ),
+    //     catchError(
+    //       this.handleError<IDbHeroSnapshotIn>('addHero', { id: '', name: '' })
+    //     )
+    //   );
   }
 
   deleteHero(id: string): Observable<IDbHeroSnapshotIn> {
