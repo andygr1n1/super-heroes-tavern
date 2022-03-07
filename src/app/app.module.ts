@@ -21,6 +21,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ComponentLogoComponent } from './mini-components/component-logo/component-logo.component';
 import { CreateHeroInputComponent } from './mini-components/create-hero-input/create-hero-input.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     HttpClientModule,
     MatToolbarModule,
     MatProgressBarModule,
+    GraphQLModule,
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
