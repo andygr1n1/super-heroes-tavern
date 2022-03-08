@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { HeroService } from 'src/app/services/hero.service';
@@ -10,6 +10,9 @@ import { IDbHeroSnapshotIn } from '../../types/types';
   styleUrls: ['./hero-search.component.scss'],
 })
 export class HeroSearchComponent implements OnInit {
+  @Input() input_data = '';
+  @Output() input_dataChange: EventEmitter<string> = new EventEmitter<string>();
+
   heroes$!: Observable<IDbHeroSnapshotIn[]>;
   private searchTerms = new Subject<string>();
 

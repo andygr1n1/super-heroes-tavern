@@ -1,5 +1,8 @@
 <app-component-logo [logo_title]="logo_title"></app-component-logo>
-<app-hero-search></app-hero-search>
+<app-hero-search
+  [(input_data)]="input_data"
+  (input_dataChange)="inputDataChange($event)"
+></app-hero-search>
 
 <div class="flex flex-col gap-5 w-[600px] m-auto my-10">
   <div

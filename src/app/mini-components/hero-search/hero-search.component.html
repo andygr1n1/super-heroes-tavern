@@ -1,0 +1,17 @@
+<div class="bg-white m-auto w-[fit-content] rounded-md">
+  <mat-form-field appearance="fill">
+    <mat-label>Find your hero: </mat-label>
+    <input
+      autocomplete="off"
+      type="text"
+      matInput
+      [name]="'Find your hero'"
+      [(ngModel)]="input_data"
+      [placeholder]="'name...'"
+      (ngModelChange)="input_dataChange.emit(input_data)"
+    />
+    <button class="!min-w-[20px] !p-0" matSuffix mat-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
