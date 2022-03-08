@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   SRV_NODE: 'http://localhost:6789/',
   SRV_NODE_UPLOAD_HERO_IMAGE: 'http://localhost:6789/api/upload-hero-image',
+  SRV_HASURA: 'http://localhost:8088/v1/graphql',
 };
 
 /*
