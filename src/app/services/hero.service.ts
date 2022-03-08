@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import { GET_HEROES } from './graphql/queries/getHeroes.query';
+import { GET_HEROES_BY_RATING } from './graphql/queries/getHeroesByRating.query';
 import { environment } from 'src/environments/environment';
 import { IGetHeroesResponse } from './graphql/interface';
 
@@ -17,6 +18,7 @@ import { IGetHeroesResponse } from './graphql/interface';
 })
 export class HeroService {
   public heroes: IDbHeroSnapshotIn[] = [];
+  public heroesOrderedByRating: IDbHeroSnapshotIn[] = [];
 
   public hasura_heroes: Observable<any> | undefined;
 
@@ -34,15 +36,29 @@ export class HeroService {
       });
   }
 
+  fetchHeroesOrderedByRating(): void {
+    this.apollo
+      .watchQuery<IGetHeroesResponse>({
+        query: GET_HEROES_BY_RATING,
+      })
+      .valueChanges.subscribe(({ data, loading }) => {
+        if (!loading) {
+          this.heroesOrderedByRating = data.heroes;
+        }
+      });
+  }
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
   updateHero(hero: IDbHeroSnapshotIn): Observable<any> {
-    const response = this.http.put(environment.SRV_HASURA, hero, this.httpOptions).pipe(
-      tap((_) => console.log(`updated hero id=${hero.id}`)),
-      catchError(this.handleError<any>('updateHero', ''))
-    );
+    const response = this.http
+      .put(environment.SRV_HASURA, hero, this.httpOptions)
+      .pipe(
+        tap((_) => console.log(`updated hero id=${hero.id}`)),
+        catchError(this.handleError<any>('updateHero', ''))
+      );
 
     return response;
   }

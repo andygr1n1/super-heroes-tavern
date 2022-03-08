@@ -1,14 +1,13 @@
 import { gql } from 'apollo-angular';
 
-export const GET_HEROES = gql`
+export const GET_HEROES_BY_RATING = gql`
   {
-    heroes {
+    heroes(order_by: { rating: desc }) {
       id
       name
-      gender
-      species
       photo
       rating
+      species
     }
   }
 `;

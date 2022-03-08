@@ -3,9 +3,10 @@ export interface IGetHeroesResponse {
     {
       id: string;
       name: string;
-      gender: string;
-      species: string;
-      photo: string;
+      gender?: string;
+      species?: string;
+      photo?: string;
+      rating?: number;
     }
   ];
 }
