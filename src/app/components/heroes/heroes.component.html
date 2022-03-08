@@ -6,7 +6,7 @@
     <li
       *ngFor="let hero of heroes"
       class="hero-card"
-      style="background-image: url('{{ hero.photo }}')"
+      style="background-image: url('{{SRV_NODE}}{{ hero.photo }}')"
       (click)="openHeroDetails(hero)"
     >
       <div>

@@ -7,7 +7,7 @@ import { Apollo, gql } from 'apollo-angular';
 
 const GET_HEROES = gql`
   {
-    hero {
+    heroes {
       id
       name
       gender
@@ -16,6 +16,18 @@ const GET_HEROES = gql`
     }
   }
 `;
+
+export interface IHasurHeroesResponse {
+  heroes: [
+    {
+      id: string;
+      name: string;
+      gender: string;
+      species: string;
+      photo: string;
+    }
+  ];
+}
 
 @Injectable({
   providedIn: 'root',
@@ -31,12 +43,15 @@ export class HeroService {
 
   getHasuraHeroes(): void {
     const hasuraHeres = this.apollo
-      .watchQuery({
+      .watchQuery<IHasurHeroesResponse>({
         query: GET_HEROES,
       })
       .valueChanges.subscribe(({ data, loading }) => {
-        console.log('loading', loading);
-        console.log('data', data);
+        if (!loading) {
+          console.log('loading', loading);
+          console.log('data', data.heroes?.[0]);
+          this.heroes = data.heroes;
+        }
       });
 
     console.log('hasuraHeres', hasuraHeres);

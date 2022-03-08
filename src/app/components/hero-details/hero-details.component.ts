@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HeroService } from 'src/app/services/hero.service';
 import { IDbHeroSnapshotIn } from 'src/app/types/types';
+import { environment } from 'src/environments/environment';
 import { HeroesComponent } from '../heroes/heroes.component';
 
 @Component({
@@ -11,13 +12,14 @@ import { HeroesComponent } from '../heroes/heroes.component';
 })
 export class HeroDetailsComponent implements OnInit {
   edit_name = false;
+  SRV_NODE = environment.SRV_NODE;
   // heroname = this.data.hero.name ?? '';
 
   constructor(
     public dialogRef: MatDialogRef<HeroDetailsComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: { hero: IDbHeroSnapshotIn },
-    public heroService: HeroService,
+    public heroService: HeroService
   ) {}
 
   get hero(): IDbHeroSnapshotIn {

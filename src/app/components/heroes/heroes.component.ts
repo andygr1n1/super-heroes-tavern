@@ -6,6 +6,7 @@ import { IDbHeroSnapshotIn } from 'src/app/types/types';
 import { MatDialog } from '@angular/material/dialog';
 import { HeroDetailsComponent } from '../hero-details/hero-details.component';
 import { HeroService } from 'src/app/services/hero.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-heroes',
@@ -14,6 +15,7 @@ import { HeroService } from 'src/app/services/hero.service';
 })
 export class HeroesComponent implements OnInit {
   logo_title = 'Super heroes';
+  SRV_NODE = environment.SRV_NODE
 
   constructor(public dialog: MatDialog, private heroService: HeroService) {}
 
