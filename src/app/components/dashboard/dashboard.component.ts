@@ -30,6 +30,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.heroService.fetchHeroesOrderedByRating();
+    if (this.heroService.fetchHeroesOrderedByRatingQuery) {
+      this.heroService.fetchHeroesOrderedByRatingQuery.refetch();
+    } else {
+      this.heroService.fetchHeroesOrderedByRating();
+    }
   }
 }

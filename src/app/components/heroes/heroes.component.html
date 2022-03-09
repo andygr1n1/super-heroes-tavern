@@ -17,6 +17,7 @@
           class="flex self-end items-center justify-center gap-4 py-4 w-full"
         >
           <mat-icon
+            (click)="heroService.updateHeroRating(hero.id, 1)"
             class="text-yellow-400 cursor-pointer hover:shadow-md hover:translate-y-[-1px] transition-all"
             >thumb_up</mat-icon
           >
@@ -25,13 +26,14 @@
             >{{ hero.rating }}</span
           >
           <mat-icon
+            (click)="heroService.updateHeroRating(hero.id, -1)"
             class="text-red-500 cursor-pointer hover:shadow-md hover:translate-y-[2px] transition-all"
             >thumb_down</mat-icon
           >
         </div>
       </div>
       <div
-        class="flex items-center justify-center bg-blue-900 text-white h-14 rounded text-base font-lato"
+        class="flex items-center justify-center bg-blue-900 text-white h-14 rounded text-base font-lato cursor-default"
       >
         {{ hero.name }}
       </div>

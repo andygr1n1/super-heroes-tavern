@@ -14,9 +14,9 @@ import { environment } from 'src/environments/environment';
 })
 export class HeroesComponent implements OnInit {
   logo_title = 'Super heroes';
-  SRV_NODE = environment.SRV_NODE
+  SRV_NODE = environment.SRV_NODE;
 
-  constructor(public dialog: MatDialog, private heroService: HeroService) {}
+  constructor(public dialog: MatDialog, public heroService: HeroService) {}
 
   openDialog(hero: IDbHeroSnapshotIn): void {}
 

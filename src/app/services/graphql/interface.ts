@@ -10,3 +10,12 @@ export interface IGetHeroesResponse {
     }
   ];
 }
+
+export interface IUpdateHeroResponse {
+  update_heroes: {
+    returning: {
+      rating: number;
+      id: string;
+    }[];
+  };
+}

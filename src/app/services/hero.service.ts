@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { IDbHeroSnapshotIn } from '../types/types';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { Apollo } from 'apollo-angular';
+import { Observable, of, Subscription } from 'rxjs';
+import { Apollo, QueryRef } from 'apollo-angular';
 import { GET_HEROES } from './graphql/queries/getHeroes.query';
 import { GET_HEROES_BY_RATING } from './graphql/queries/getHeroesByRating.query';
 import { environment } from 'src/environments/environment';
-import { IGetHeroesResponse } from './graphql/interface';
-
-
-
-
+import { IGetHeroesResponse, IUpdateHeroResponse } from './graphql/interface';
+import { HERO_RATING_MUTATION } from './graphql/mutations/heroRating.mutation';
+import _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +17,11 @@ import { IGetHeroesResponse } from './graphql/interface';
 export class HeroService {
   public heroes: IDbHeroSnapshotIn[] = [];
   public heroesOrderedByRating: IDbHeroSnapshotIn[] = [];
+  public fetchHeroesOrderedByRatingQuery:
+    | QueryRef<IGetHeroesResponse>
+    | undefined;
 
-  public hasura_heroes: Observable<any> | undefined;
+  // public hasura_heroes: Observable<any> | undefined;
 
   constructor(private http: HttpClient, private apollo: Apollo) {}
 
@@ -37,14 +38,34 @@ export class HeroService {
   }
 
   fetchHeroesOrderedByRating(): void {
-    this.apollo
-      .watchQuery<IGetHeroesResponse>({
+    this.fetchHeroesOrderedByRatingQuery =
+      this.apollo.watchQuery<IGetHeroesResponse>({
         query: GET_HEROES_BY_RATING,
-      })
-      .valueChanges.subscribe(({ data, loading }) => {
+      });
+
+    this.fetchHeroesOrderedByRatingQuery?.valueChanges.subscribe(
+      ({ data, loading }) => {
         if (!loading) {
           this.heroesOrderedByRating = data.heroes;
         }
+      }
+    );
+  }
+
+  updateHeroRating(id: string, rate: number): void {
+    console.log('hero_id', id);
+    this.apollo
+      .mutate<IUpdateHeroResponse>({
+        mutation: HERO_RATING_MUTATION,
+        variables: {
+          id,
+          rate,
+        },
+      })
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (e) => console.error(e),
+        complete: () => console.info('complete'),
       });
   }
 
