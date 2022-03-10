@@ -49,3 +49,9 @@
     @apply bg-blue-900 text-white;
   }
 }
+
+@layer utilities {
+  .absolute-center {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+}
