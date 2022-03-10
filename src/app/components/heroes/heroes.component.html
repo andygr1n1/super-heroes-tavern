@@ -17,6 +17,7 @@
           class="flex self-end items-center justify-center gap-4 py-4 w-full"
         >
           <mat-icon
+            title="rate up"
             (click)="heroService.updateHeroRating(hero.id, 1)"
             class="text-yellow-400 cursor-pointer hover:shadow-md hover:translate-y-[-1px] transition-all"
             >thumb_up</mat-icon
@@ -26,6 +27,7 @@
             >{{ hero.rating }}</span
           >
           <mat-icon
+            title="rate down"
             (click)="heroService.updateHeroRating(hero.id, -1)"
             class="text-red-500 cursor-pointer hover:shadow-md hover:translate-y-[2px] transition-all"
             >thumb_down</mat-icon

@@ -13,15 +13,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './services/in-memory-data.service';
 import { CreateHeroComponent } from './components/create-hero/create-hero.component';
 import { HeroSearchComponent } from './mini-components/hero-search/hero-search.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ComponentLogoComponent } from './mini-components/component-logo/component-logo.component';
 import { CreateHeroInputComponent } from './mini-components/create-hero-input/create-hero-input.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { GraphQLModule } from './graphql.module';
+import { GraphQLModule } from './graphql/graphql.module';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +33,7 @@ import { GraphQLModule } from './graphql.module';
     HeroSearchComponent,
     ComponentLogoComponent,
     CreateHeroInputComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,12 +48,6 @@ import { GraphQLModule } from './graphql.module';
     MatToolbarModule,
     MatProgressBarModule,
     GraphQLModule,
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-    //   dataEncapsulation: false,
-    // }),
   ],
   providers: [],
   bootstrap: [AppComponent],
