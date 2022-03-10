@@ -21,6 +21,7 @@ import { CreateHeroInputComponent } from './mini-components/create-hero-input/cr
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { GraphQLModule } from './graphql/graphql.module';
 import { FooterComponent } from './components/footer/footer.component';
+import { TopNavigationMenuComponent } from './components/top-navigation-menu/top-navigation-menu.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ComponentLogoComponent,
     CreateHeroInputComponent,
     FooterComponent,
+    TopNavigationMenuComponent,
   ],
   imports: [
     BrowserModule,

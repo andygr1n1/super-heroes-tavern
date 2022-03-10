@@ -6,8 +6,13 @@
 @tailwind utilities;
 
 @layer base {
+  html,
   body {
-    @apply font-lato m-0 h-full;
+    @apply h-full m-0 p-0 #{!important};
+  }
+
+  body {
+    @apply font-lato m-0;
 
     background: #396afc; /* fallback for old browsers */
     background: -webkit-linear-gradient(
