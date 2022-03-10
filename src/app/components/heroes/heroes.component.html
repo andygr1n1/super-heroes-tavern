@@ -1,20 +1,41 @@
 <div class="flex flex-col gap-20 items-center">
   <app-component-logo [logo_title]="logo_title"></app-component-logo>
-  <ul
-    class="heroes-list flex flex-wrap w-full items-center justify-center"
-  >
+  <ul class="heroes-list flex flex-wrap w-full items-center justify-center">
     <li
       *ngFor="let hero of heroes"
       class="hero-card"
-      style="background-image: url('{{ hero.photo }}')"
-      (click)="openHeroDetails(hero)"
+      style="background-image: url('{{ SRV_NODE }}{{ hero.photo }}')"
     >
-      <div>
-        <h5 *ngIf="hero.name" class="flex w-full cursor-default"></h5>
+      <div class="relative flex flex-auto">
+        <mat-icon
+          title="Biography"
+          (click)="openHeroDetails(hero)"
+          class="absolute right-6 top-4 text-white text-4xl cursor-pointer hover:text-yellow-400 hover:shadow-md hover:translate-y-[-2px] transition-all"
+          >info</mat-icon
+        >
+        <div
+          class="flex self-end items-center justify-center gap-4 py-4 w-full"
+        >
+          <mat-icon
+            title="rate up"
+            (click)="heroService.updateHeroRating(hero.id, 1)"
+            class="text-yellow-400 cursor-pointer hover:shadow-md hover:translate-y-[-1px] transition-all"
+            >thumb_up</mat-icon
+          >
+          <span
+            class="w-8 h-8 flex items-center justify-center font-bold bg-white rounded-full select-none"
+            >{{ hero.rating }}</span
+          >
+          <mat-icon
+            title="rate down"
+            (click)="heroService.updateHeroRating(hero.id, -1)"
+            class="text-red-500 cursor-pointer hover:shadow-md hover:translate-y-[2px] transition-all"
+            >thumb_down</mat-icon
+          >
+        </div>
       </div>
-      <div class="flex flex-auto"></div>
       <div
-        class="flex items-center justify-center bg-blue-900 text-white h-14 rounded text-base font-lato"
+        class="flex items-center justify-center bg-blue-900 text-white h-14 rounded text-base font-lato cursor-default"
       >
         {{ hero.name }}
       </div>

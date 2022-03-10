@@ -10,4 +10,5 @@ export interface IDbHeroSnapshotIn {
   citizenship?: string;
   photo?: string;
   movies?: string[];
+  rating?: number;
 }

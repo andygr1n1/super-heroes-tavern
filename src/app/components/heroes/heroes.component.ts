@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { nanoid } from 'nanoid';
 import { IHero } from './heroes.interface';
-import heroes_json from '../../../local-db/dbHeroes.json';
 import { IDbHeroSnapshotIn } from 'src/app/types/types';
 import { MatDialog } from '@angular/material/dialog';
 import { HeroDetailsComponent } from '../hero-details/hero-details.component';
 import { HeroService } from 'src/app/services/hero.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-heroes',
@@ -14,8 +14,9 @@ import { HeroService } from 'src/app/services/hero.service';
 })
 export class HeroesComponent implements OnInit {
   logo_title = 'Super heroes';
+  SRV_NODE = environment.SRV_NODE;
 
-  constructor(public dialog: MatDialog, private heroService: HeroService) {}
+  constructor(public dialog: MatDialog, public heroService: HeroService) {}
 
   openDialog(hero: IDbHeroSnapshotIn): void {}
 
@@ -38,7 +39,7 @@ export class HeroesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.heroService.getHasuraHeroes();
+    this.heroService.fetchHeroes();
     // console.log('this.heroService.heroes', this.heroService.heroes);
   }
 }

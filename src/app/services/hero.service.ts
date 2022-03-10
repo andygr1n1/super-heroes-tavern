@@ -1,57 +1,72 @@
 import { Injectable } from '@angular/core';
 import { IDbHeroSnapshotIn } from '../types/types';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { Apollo, gql } from 'apollo-angular';
-
-const GET_HEROES = gql`
-  {
-    hero {
-      id
-      name
-      gender
-      species
-      photo
-    }
-  }
-`;
+import { Observable, of, Subscription } from 'rxjs';
+import { Apollo, QueryRef } from 'apollo-angular';
+import { GET_HEROES } from './graphql/queries/getHeroes.query';
+import { GET_HEROES_BY_RATING } from './graphql/queries/getHeroesByRating.query';
+import { environment } from 'src/environments/environment';
+import { IGetHeroesResponse, IUpdateHeroResponse } from './graphql/interface';
+import { HERO_RATING_MUTATION } from './graphql/mutations/heroRating.mutation';
+import _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
   public heroes: IDbHeroSnapshotIn[] = [];
+  public heroesOrderedByRating: IDbHeroSnapshotIn[] = [];
+  public fetchHeroesOrderedByRatingQuery:
+    | QueryRef<IGetHeroesResponse>
+    | undefined;
 
-  public hasura_heroes: Observable<any> | undefined;
+  // public hasura_heroes: Observable<any> | undefined;
 
   constructor(private http: HttpClient, private apollo: Apollo) {}
 
-  private heroesUrl = 'http://localhost:8088/v1/graphql';
-
-  getHasuraHeroes(): void {
-    const hasuraHeres = this.apollo
-      .watchQuery({
+  fetchHeroes(): void {
+    this.apollo
+      .watchQuery<IGetHeroesResponse>({
         query: GET_HEROES,
       })
       .valueChanges.subscribe(({ data, loading }) => {
-        console.log('loading', loading);
-        console.log('data', data);
+        if (!loading) {
+          this.heroes = data.heroes;
+        }
       });
-
-    console.log('hasuraHeres', hasuraHeres);
-    console.log('hasuraHeres');
   }
 
-  getHeroes(): void {
-    const heroes_data = this.http
-      .get<IDbHeroSnapshotIn[]>(this.heroesUrl)
-      .pipe(catchError(this.handleError<IDbHeroSnapshotIn[]>('getHeroes', [])));
+  fetchHeroesOrderedByRating(): void {
+    this.fetchHeroesOrderedByRatingQuery =
+      this.apollo.watchQuery<IGetHeroesResponse>({
+        query: GET_HEROES_BY_RATING,
+      });
 
-    heroes_data.subscribe((heroes_data) => {
-      console.log('heroes_data', heroes_data);
-      // this.heroes = heroes_data;
-    });
+    this.fetchHeroesOrderedByRatingQuery?.valueChanges.subscribe(
+      ({ data, loading }) => {
+        if (!loading) {
+          this.heroesOrderedByRating = data.heroes;
+        }
+      }
+    );
+  }
+
+  updateHeroRating(id: string, rate: number): void {
+    console.log('hero_id', id);
+    this.apollo
+      .mutate<IUpdateHeroResponse>({
+        mutation: HERO_RATING_MUTATION,
+        variables: {
+          id,
+          rate,
+        },
+      })
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (e) => console.error(e),
+        complete: () => console.info('complete'),
+      });
   }
 
   httpOptions = {
@@ -59,10 +74,12 @@ export class HeroService {
   };
 
   updateHero(hero: IDbHeroSnapshotIn): Observable<any> {
-    const response = this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
-      tap((_) => console.log(`updated hero id=${hero.id}`)),
-      catchError(this.handleError<any>('updateHero', ''))
-    );
+    const response = this.http
+      .put(environment.SRV_HASURA, hero, this.httpOptions)
+      .pipe(
+        tap((_) => console.log(`updated hero id=${hero.id}`)),
+        catchError(this.handleError<any>('updateHero', ''))
+      );
 
     return response;
   }
@@ -70,7 +87,7 @@ export class HeroService {
   addHero(hero: IDbHeroSnapshotIn): void /* Observable<IDbHeroSnapshotIn> */ {
     this.heroes.push(hero);
     // return this.http
-    //   .post<IDbHeroSnapshotIn>(this.heroesUrl, hero, this.httpOptions)
+    //   .post<IDbHeroSnapshotIn>(environment.SRV_HASURA, hero, this.httpOptions)
     //   .pipe(
     //     tap((newHero: IDbHeroSnapshotIn) =>
     //       console.log(`added hero w/ id=${newHero.id}`)
@@ -83,7 +100,7 @@ export class HeroService {
 
   deleteHero(id: string): Observable<IDbHeroSnapshotIn> {
     console.log('id', id);
-    const url = `${this.heroesUrl}/${id}`;
+    const url = `${environment.SRV_HASURA}/${id}`;
     // this.heroes = this.heroes.filter((h) => h.id !== id);
     return this.http.delete<IDbHeroSnapshotIn>(url, this.httpOptions).pipe(
       tap((hero: IDbHeroSnapshotIn) => console.log('deleted hero:', hero)),
@@ -100,7 +117,7 @@ export class HeroService {
       return of([]);
     }
     return this.http
-      .get<IDbHeroSnapshotIn[]>(`${this.heroesUrl}/?name=${term}`)
+      .get<IDbHeroSnapshotIn[]>(`${environment.SRV_HASURA}/?name=${term}`)
       .pipe(
         tap((x) =>
           x.length

@@ -5,10 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  app_title = 'Super heroes';
-
-  isActive(activeRoute: string): boolean {
-    return false;
-  }
-}
+export class AppComponent {}

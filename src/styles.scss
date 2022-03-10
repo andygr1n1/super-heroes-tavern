@@ -6,8 +6,13 @@
 @tailwind utilities;
 
 @layer base {
+  html,
   body {
-    @apply font-lato m-0 h-full;
+    @apply h-full m-0 p-0 #{!important};
+  }
+
+  body {
+    @apply font-lato m-0;
 
     background: #396afc; /* fallback for old browsers */
     background: -webkit-linear-gradient(
@@ -47,5 +52,11 @@
 @layer components {
   .nav-active {
     @apply bg-blue-900 text-white;
+  }
+}
+
+@layer utilities {
+  .absolute-center {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
   }
 }
