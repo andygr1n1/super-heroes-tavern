@@ -9,6 +9,7 @@ export interface IGetHeroesResponse {
       rating?: number;
     }
   ];
+  heroes_aggregate: { aggregate: { count: number } };
 }
 
 export interface IUpdateHeroResponse {

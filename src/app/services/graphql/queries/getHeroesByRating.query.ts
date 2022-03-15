@@ -10,5 +10,10 @@ export const GET_HEROES_BY_RATING = gql`
       rating
       species
     }
+    heroes_aggregate {
+      aggregate {
+        count
+      }
+    }
   }
 `;
