@@ -3,6 +3,7 @@
   <app-hero-search
     [(input_data)]="input_data"
     (input_dataChange)="inputDataChange($event)"
+    (clearInput)="input_data = ''"
   ></app-hero-search>
 
   <div

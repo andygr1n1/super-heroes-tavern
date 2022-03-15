@@ -12,6 +12,7 @@ import { IDbHeroSnapshotIn } from '../../types/types';
 export class HeroSearchComponent implements OnInit {
   @Input() input_data = '';
   @Output() input_dataChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() clearInput: EventEmitter<string> = new EventEmitter<string>();
 
   heroes$!: Observable<IDbHeroSnapshotIn[]>;
   private searchTerms = new Subject<string>();
