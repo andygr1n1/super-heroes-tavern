@@ -42,10 +42,13 @@ export class HeroService {
       });
   }
 
-  fetchHeroesOrderedByRating(): void {
+  fetchHeroesOrderedByRating(offset = 0): void {
     this.fetchHeroesOrderedByRatingQuery =
       this.apollo.watchQuery<IGetHeroesResponse>({
         query: GET_HEROES_BY_RATING,
+        variables: {
+          offset,
+        },
       });
 
     this.fetchHeroesOrderedByRatingQuery?.valueChanges.subscribe(
@@ -55,6 +58,24 @@ export class HeroService {
         }
       }
     );
+  }
+
+  fetchMoreHeroesOrderedByRating(): void {
+    const fetchMore = this.apollo.watchQuery<IGetHeroesResponse>({
+      query: GET_HEROES_BY_RATING,
+      variables: {
+        offset: this.heroesOrderedByRating.length,
+      },
+    });
+
+    fetchMore.valueChanges.subscribe(({ data, loading }) => {
+      if (!loading) {
+        this.heroesOrderedByRating = [
+          ...this.heroesOrderedByRating,
+          ...data.heroes,
+        ];
+      }
+    });
   }
 
   updateHeroRating(id: string, rate: number): void {
