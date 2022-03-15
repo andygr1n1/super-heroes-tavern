@@ -7,9 +7,14 @@ import { Apollo, QueryRef } from 'apollo-angular';
 import { GET_HEROES } from './graphql/queries/getHeroes.query';
 import { GET_HEROES_BY_RATING } from './graphql/queries/getHeroesByRating.query';
 import { environment } from 'src/environments/environment';
-import { IGetHeroesResponse, IUpdateHeroResponse } from './graphql/interface';
+import {
+  IGetHeroesResponse,
+  IInsertNewHeroResponse,
+  IUpdateHeroResponse,
+} from './graphql/interface';
 import { HERO_RATING_MUTATION } from './graphql/mutations/heroRating.mutation';
 import _ from 'lodash';
+import { INSERT_HERO_MUTATION } from './graphql/mutations/insertHero.mutation';
 
 @Injectable({
   providedIn: 'root',
@@ -53,13 +58,32 @@ export class HeroService {
   }
 
   updateHeroRating(id: string, rate: number): void {
-    console.log('hero_id', id);
     this.apollo
       .mutate<IUpdateHeroResponse>({
         mutation: HERO_RATING_MUTATION,
         variables: {
           id,
           rate,
+        },
+      })
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (e) => console.error(e),
+        complete: () => console.info('complete'),
+      });
+  }
+
+  insertNewHero({ id, name, gender, species, photo }: IDbHeroSnapshotIn): void {
+    console.log('vars:::', id, name, gender, species, photo);
+    this.apollo
+      .mutate<IInsertNewHeroResponse>({
+        mutation: INSERT_HERO_MUTATION,
+        variables: {
+          id,
+          name,
+          gender,
+          species,
+          photo,
         },
       })
       .subscribe({

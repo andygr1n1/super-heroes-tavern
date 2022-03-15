@@ -1,5 +1,10 @@
-<div class="flex flex-col gap-20 items-center">
+<div class="flex flex-col gap-20 items-center py-20">
   <app-component-logo [logo_title]="logo_title"></app-component-logo>
+  <app-hero-search
+    [(input_data)]="input_data"
+    (input_dataChange)="inputDataChange($event)"
+  ></app-hero-search>
+
   <ul class="heroes-list flex flex-wrap w-full items-center justify-center">
     <li
       *ngFor="let hero of heroes"
