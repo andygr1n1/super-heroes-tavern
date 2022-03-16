@@ -22,6 +22,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { GraphQLModule } from './graphql/graphql.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { TopNavigationMenuComponent } from './components/top-navigation-menu/top-navigation-menu.component';
+import { ConfirmDeleteHeroDialogComponent } from './mini-components/confirm-delete-hero-dialog/confirm-delete-hero-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TopNavigationMenuComponent } from './components/top-navigation-menu/top
     CreateHeroInputComponent,
     FooterComponent,
     TopNavigationMenuComponent,
+    ConfirmDeleteHeroDialogComponent,
   ],
   imports: [
     BrowserModule,
