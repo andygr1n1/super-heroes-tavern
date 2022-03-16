@@ -3,9 +3,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HeroService } from 'src/app/services/hero.service';
 import { IDbHeroSnapshotIn } from 'src/app/types/types';
 import { environment } from 'src/environments/environment';
-import { HeroesComponent } from '../heroes/heroes.component';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteHeroDialogComponent } from 'src/app/mini-components/confirm-delete-hero-dialog/confirm-delete-hero-dialog.component';
+import { HeroesComponent } from '../heroes/heroes.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { CreateHeroComponent } from '../create-hero/create-hero.component';
 
 @Component({
   selector: 'app-hero-details',
@@ -18,6 +22,8 @@ export class HeroDetailsComponent implements OnInit {
   // heroname = this.data.hero.name ?? '';
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     public dialogRef: MatDialogRef<HeroDetailsComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: { hero: IDbHeroSnapshotIn },
@@ -43,7 +49,6 @@ export class HeroDetailsComponent implements OnInit {
     this.heroService.updateHero(this.data.hero).subscribe();
   }
 
-
   onClose(): void {
     this.dialogRef.close();
   }
@@ -59,6 +64,10 @@ export class HeroDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  redirectHeroFacktory(): void {
+    this.router.navigate(['/', 'create_hero', { id: this.hero.id }]);
   }
 
   ngOnInit(): void {}
