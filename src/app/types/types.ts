@@ -11,4 +11,5 @@ export interface IDbHeroSnapshotIn {
   photo?: string;
   movies?: string[];
   rating?: number;
+  rating_place?: number;
 }

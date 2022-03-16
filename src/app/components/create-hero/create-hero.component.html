@@ -1,92 +1,96 @@
-<app-component-logo [logo_title]="logo_title"></app-component-logo>
-<div
-  class="flex items-center justify-center bg-white m-10 p-10 h-full rounded-md"
->
-  <div class="flex flex-col gap-10 p-10 w-[800px]">
-    <div class="flex gap-10 justify-between">
-      <div class="flex flex-col">
-        <app-create-hero-input
-          [inputTitle]="'Name'"
-          [(bind_to)]="name"
-          (bind_toChange)="nameValueChange($event)"
-        ></app-create-hero-input>
+<div class="flex flex-col gap-20 items-center py-20">
+  <app-component-logo [logo_title]="logo_title"></app-component-logo>
+  <div
+    class="flex items-center justify-center bg-white m-10 p-10 h-full rounded-md"
+  >
+    <div class="flex flex-col gap-10 p-10 w-[800px]">
+      <div class="flex gap-10 justify-between">
+        <div class="flex flex-col">
+          <app-create-hero-input
+            [inputTitle]="'Name'"
+            [(bind_to)]="name"
+            (bind_toChange)="nameValueChange($event)"
+          ></app-create-hero-input>
 
-        <app-create-hero-input
-          [inputTitle]="'Gender'"
-          [(bind_to)]="gender"
-          (bind_toChange)="genderValueChange($event)"
-        ></app-create-hero-input>
+          <app-create-hero-input
+            [inputTitle]="'Gender'"
+            [(bind_to)]="gender"
+            (bind_toChange)="genderValueChange($event)"
+          ></app-create-hero-input>
 
-        <app-create-hero-input
-          [inputTitle]="'Species'"
-          [(bind_to)]="species"
-          (bind_toChange)="speciesValueChange($event)"
-        ></app-create-hero-input>
-      </div>
+          <app-create-hero-input
+            [inputTitle]="'Species'"
+            [(bind_to)]="species"
+            (bind_toChange)="speciesValueChange($event)"
+          ></app-create-hero-input>
+        </div>
 
-      <input
-        class="hidden"
-        accept="image/*"
-        type="file"
-        (change)="onFileSelect($event)"
-        #fileUpload
-      />
-      <div
-        class="flex flex-col gap-10 items-center justify-center min-h-[500px] min-w-[350px] border border-blue-900 rounded-md shadow-2xl bg-no-repeat bg-cover bg-center"
-        [ngStyle]="
-          uploaded_img
-            ? { 'background-image': 'url(' + uploaded_img + ')' }
-            : null
-        "
-      >
-        <button
-          mat-mini-fab
-          color="primary"
-          class="upload-btn !bg-blue-900"
-          (click)="fileUpload.value = ''; fileUpload.click()"
+        <input
+          class="hidden"
+          accept="image/*"
+          type="file"
+          (change)="onFileSelect($event)"
+          #fileUpload
+        />
+        <div
+          class="flex flex-col gap-10 items-center justify-center min-h-[500px] min-w-[350px] border border-blue-900 rounded-md shadow-2xl bg-no-repeat bg-cover bg-center"
+          [ngStyle]="
+            uploaded_img
+              ? { 'background-image': 'url(' + uploaded_img + ')' }
+              : null
+          "
         >
-          <mat-icon class="">attach_file</mat-icon>
-        </button>
+          <button
+            mat-mini-fab
+            color="primary"
+            class="upload-btn !bg-blue-900"
+            (click)="fileUpload.value = ''; fileUpload.click()"
+          >
+            <mat-icon class="">attach_file</mat-icon>
+          </button>
 
-        <button
-          *ngIf="uploaded_img"
-          title="remove image"
-          mat-mini-fab
-          color=""
-          class="upload-btn !bg-red-600 text-white"
-          (click)="uploaded_img = ''"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
+          <button
+            *ngIf="uploaded_img"
+            title="remove image"
+            mat-mini-fab
+            color=""
+            class="upload-btn !bg-red-600 text-white"
+            (click)="uploaded_img = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
 
-        <span *ngIf="!uploaded_img" class="select-none">no image</span>
+          <span *ngIf="!uploaded_img" class="select-none">no image</span>
+        </div>
       </div>
-    </div>
-    <div class="progress">
-      <mat-progress-bar
-        class="progress-bar"
-        mode="determinate"
-        [value]="uploadProgress"
-        *ngIf="uploadProgress"
-      >
-      </mat-progress-bar>
+      <div class="progress">
+        <mat-progress-bar
+          class="progress-bar"
+          mode="determinate"
+          [value]="uploadProgress"
+          *ngIf="uploadProgress"
+        >
+        </mat-progress-bar>
 
-      <mat-icon
-        class="cancel-upload"
-        (click)="cancelUpload()"
-        *ngIf="uploadProgress"
-        >delete_forever</mat-icon
+        <mat-icon
+          class="cancel-upload"
+          (click)="cancelUpload()"
+          *ngIf="uploadProgress"
+          >delete_forever</mat-icon
+        >
+      </div>
+      <button
+        disabled="{{ !name.length }}"
+        title="{{
+          !name.length ? 'Provide a name for the Hero' : 'Create Hero'
+        }}"
+        type="button"
+        mat-raised-button
+        (click)="addHero()"
+        class="w-40 !py-4 bg-blue-900 text-white disabled:!bg-gray-300"
       >
+        Create hero
+      </button>
     </div>
-    <button
-      disabled="{{ !name.length }}"
-      title="{{ !name.length ? 'Provide a name for the Hero' : 'Create Hero' }}"
-      type="button"
-      mat-raised-button
-      (click)="addHero()"
-      class="w-40 !py-4 bg-blue-900 text-white disabled:!bg-gray-300"
-    >
-      Create hero
-    </button>
   </div>
 </div>

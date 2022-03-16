@@ -1,13 +1,21 @@
 <div class="flex items-center justify-center gap-2 w-fuill">
-  <input
-    autocomplete="off"
-    type="text"
-    matInput
-    [name]="'Find your hero'"
-    [(ngModel)]="input_data"
-    [placeholder]="'name...'"
-    (ngModelChange)="input_dataChange.emit(input_data)"
-    class="min-w-[300px] w-[fit-content] rounded-md bg-white p-4 focus:outline-none"
-  />
+  <div class="relative flex items-center bg-white rounded-md">
+    <input
+      autocomplete="off"
+      type="text"
+      [name]="'Find your hero'"
+      [(ngModel)]="input_data"
+      [placeholder]="'name...'"
+      (ngModelChange)="input_dataChange.emit(input_data)"
+      class="min-w-[300px] w-[fit-content] rounded-md bg-white p-4 focus:outline-none"
+      #superinput
+    />
+
+    <mat-icon
+      class="absolute right-0 cursor-pointer hover:!text-red-600 !text-sm"
+      (click)="input_data && clearInput.emit((input_data = ''))"
+      >close</mat-icon
+    >
+  </div>
   <mat-icon class="text-4xl !w-10 !h-10 text-white">search</mat-icon>
 </div>

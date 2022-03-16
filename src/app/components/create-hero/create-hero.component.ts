@@ -1,6 +1,6 @@
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { nanoid } from 'nanoid';
+import { v4 as uuid } from 'uuid';
 import { finalize, Subscription } from 'rxjs';
 import { HeroService } from 'src/app/services/hero.service';
 import { IDbHeroSnapshotIn } from 'src/app/types/types';
@@ -20,6 +20,7 @@ export class CreateHeroComponent implements OnInit {
   name = '';
   gender = '';
   species = '';
+  photo = '';
 
   constructor(private heroService: HeroService, private http: HttpClient) {}
 
@@ -39,15 +40,15 @@ export class CreateHeroComponent implements OnInit {
     }
 
     const newHero: IDbHeroSnapshotIn = {
-      id: nanoid(),
+      id: uuid(),
       name: this.name.trim(),
       gender: this.gender.trim(),
       species: this.species.trim(),
-      photo: this.uploaded_img,
+      photo: this.photo,
     };
 
     // this.heroService.addHero(newHero).subscribe();
-    this.heroService.addHero(newHero);
+    this.heroService.insertNewHero(newHero);
     this.clearData();
 
     console.log('hero added');
@@ -100,6 +101,7 @@ export class CreateHeroComponent implements OnInit {
           if (event_data?.body?.data?.name) {
             const name = event_data?.body?.data?.name;
             this.uploaded_img = `${environment.SRV_NODE}${name}`;
+            this.photo = name;
           }
         }
         if (event.type == HttpEventType.UploadProgress) {

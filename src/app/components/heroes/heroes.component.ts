@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HeroDetailsComponent } from '../hero-details/hero-details.component';
 import { HeroService } from 'src/app/services/hero.service';
 import { environment } from 'src/environments/environment';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-heroes',
@@ -14,6 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HeroesComponent implements OnInit {
   logo_title = 'Super heroes';
+  input_data = '';
   SRV_NODE = environment.SRV_NODE;
 
   constructor(public dialog: MatDialog, public heroService: HeroService) {}
@@ -35,7 +37,15 @@ export class HeroesComponent implements OnInit {
   }
 
   get heroes(): IDbHeroSnapshotIn[] {
-    return this.heroService.heroes;
+    return this.heroService.heroes.filter((hero) =>
+      _.lowerCase(hero.name.trim()).includes(
+        _.lowerCase(this.input_data.trim())
+      )
+    );
+  }
+
+  inputDataChange(value: string) {
+    this.input_data = value;
   }
 
   ngOnInit(): void {
