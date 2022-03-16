@@ -46,7 +46,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.heroService.fetchHeroesOrderedByRatingQuery) {
-      console.log('gg');
       this.heroService.fetchHeroesOrderedByRatingQuery.refetch();
     } else {
       this.heroService.fetchHeroesOrderedByRating();

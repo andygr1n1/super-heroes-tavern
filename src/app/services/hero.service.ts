@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { IDbHeroSnapshotIn } from '../types/types';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Apollo, QueryRef } from 'apollo-angular';
-import { GET_HEROES } from './graphql/queries/getHeroes.query';
+import { GET_ALL_HEROES } from './graphql/queries/getAllHeroes.query';
 import { GET_HEROES_BY_RATING } from './graphql/queries/getHeroesByRating.query';
 import { environment } from 'src/environments/environment';
 import {
@@ -22,13 +22,15 @@ import { DELETE_HERO_MUTATION } from './graphql/mutations/deleteHero.mutation';
   providedIn: 'root',
 })
 export class HeroService {
+  public allHeroes: IDbHeroSnapshotIn[] = [];
   public heroesOrderedByRating: IDbHeroSnapshotIn[] = [];
+  public fetchAllHeroesQuery:
+    | QueryRef<IGetHeroesResponse>
+    | undefined;
   public fetchHeroesOrderedByRatingQuery:
     | QueryRef<IGetHeroesResponse>
     | undefined;
   public fetched_all_heroes = false;
-
-  // public hasura_heroes: Observable<any> | undefined;
 
   constructor(private http: HttpClient, private apollo: Apollo) {}
 
@@ -38,6 +40,18 @@ export class HeroService {
     } else {
       this.fetched_all_heroes = false;
     }
+  }
+
+  fetchAllHeroes(): void {
+    this.fetchAllHeroesQuery = this.apollo.watchQuery<IGetHeroesResponse>({
+      query: GET_ALL_HEROES,
+    });
+
+    this.fetchAllHeroesQuery?.valueChanges.subscribe(({ data, loading }) => {
+      if (!loading) {
+        this.allHeroes = data.heroes;
+      }
+    });
   }
 
   fetchHeroesOrderedByRating(offset = 0): void {
@@ -55,6 +69,7 @@ export class HeroService {
           this.heroesOrderedByRating = data.heroes.map((hero, index) => {
             return { ...hero, rating_place: index + 1 };
           });
+          
           this.validateAllFetchedHeroesLength(
             data.heroes_aggregate.aggregate.count
           );
@@ -137,7 +152,10 @@ export class HeroService {
       .subscribe({
         next: (data) => {
           const deleted_id = data.data?.delete_heroes.returning[0].id;
-          this.heroesOrderedByRating.filter((hero) => hero.id !== deleted_id);
+          console.log('deleted_id', deleted_id);
+          this.heroesOrderedByRating = this.heroesOrderedByRating.filter(
+            (hero) => hero.id !== deleted_id
+          );
         },
         error: (e) => console.error(e),
         complete: () => console.info('hero deleted'),

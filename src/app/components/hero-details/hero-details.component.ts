@@ -4,6 +4,8 @@ import { HeroService } from 'src/app/services/hero.service';
 import { IDbHeroSnapshotIn } from 'src/app/types/types';
 import { environment } from 'src/environments/environment';
 import { HeroesComponent } from '../heroes/heroes.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteHeroDialogComponent } from 'src/app/mini-components/confirm-delete-hero-dialog/confirm-delete-hero-dialog.component';
 
 @Component({
   selector: 'app-hero-details',
@@ -19,7 +21,8 @@ export class HeroDetailsComponent implements OnInit {
     public dialogRef: MatDialogRef<HeroDetailsComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: { hero: IDbHeroSnapshotIn },
-    public heroService: HeroService
+    public heroService: HeroService,
+    public confirmDeletedialog: MatDialog
   ) {}
 
   get hero(): IDbHeroSnapshotIn {
@@ -40,13 +43,22 @@ export class HeroDetailsComponent implements OnInit {
     this.heroService.updateHero(this.data.hero).subscribe();
   }
 
-  deleteHero(id: string): void {
-    this.heroService.deleteHero(id);
-    this.onClose();
-  }
 
   onClose(): void {
     this.dialogRef.close();
+  }
+
+  confirmDeleteDialog(): void {
+    const dialogRef = this.confirmDeletedialog.open(
+      ConfirmDeleteHeroDialogComponent,
+      {
+        data: { hero: this.hero, onCloseHeroDetails: this.dialogRef },
+      }
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   ngOnInit(): void {}
