@@ -1,61 +1,18 @@
 <div class="h-full">
-  <div>
-    <!-- <div>
-  <label for="name">Hero name: </label>
-  <input id="name" [(ngModel)]="hero.name" placeholder="name" />
-</div> -->
+  <!-- header -->
 
-    <div class="flex justify-between items-center">
-      <form
-        *ngIf="edit_name; else heroNameBlock"
-        class="edit-name-form w-[fit-content]"
-      >
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Name: </mat-label>
-          <input
-            type="text"
-            matInput
-            name="name"
-            [(ngModel)]="hero.name"
-            placeholder="name"
-          />
-        </mat-form-field>
-        <button
-          mat-icon-button
-          color="primary"
-          aria-label="Example icon button with a home icon"
-          class="flex justify-center items-center !mb-4 cursor-pointer"
-          (click)="saveName()"
-        >
-          <mat-icon class="text-green-500">done_outline</mat-icon>
-        </button>
-      </form>
-      <ng-template #heroNameBlock>
-        <div class="flex items-center justify-items-start gap-5 h-[81px]">
-          <h3>{{ hero?.name }}</h3>
-          <button
-            title="edit name"
-            mat-icon-button
-            color="primary"
-            aria-label="Example icon button with a home icon"
-            class="!flex !justify-center !items-center !mt-2 cursor-pointer"
-            (click)="toggleEditName()"
-          >
-            <mat-icon class="text-green-500 mb-1">edit_outline</mat-icon>
-          </button>
-        </div>
-      </ng-template>
-      <!-- <button mat-raised-button color="warn" class="!my-4">Warn</button> -->
-      <button
-        title="close window"
-        mat-mini-fab
-        aria-label="Example icon button with a filter list icon"
-        class="!bg-indigo-700"
-        (click)="onClose()"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
+  <div class="flex justify-between items-center">
+    <div class="flex items-center justify-items-start gap-5 h-[81px]">
+      <h3>{{ hero?.name }}</h3>
     </div>
+    <button
+      title="close window"
+      mat-mini-fab
+      class="!bg-red-500"
+      (click)="onClose()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
   <!-- body -->
   <div class="flex flex-auto py-6">
@@ -76,12 +33,12 @@
         [title]="hero.name"
         src="{{ SRV_NODE }}{{ hero.photo }}"
         alt="{{ hero.photo }}"
-        class="select-none shadow-2xl rounded-md"
+        class="select-none shadow-2xl rounded-md !h-[550px]"
       />
     </div>
   </div>
   <!-- footer -->
-  <div class="flex flex-shrink-0 flex-grow-0">
+  <div class="flex flex-shrink-0 flex-grow-0 gap-5">
     <button
       title="delete hero"
       mat-raised-button
@@ -89,6 +46,14 @@
       (click)="deleteHero(hero.id)"
     >
       Delete hero
+    </button>
+    <button
+      title="edit hero info"
+      mat-raised-button
+      class="bg-blue-600 h-14 w-32 text-white"
+      (click)="deleteHero(hero.id)"
+    >
+      Edit Hero
     </button>
   </div>
 </div>
