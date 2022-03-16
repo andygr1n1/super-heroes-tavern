@@ -11,16 +11,17 @@ import {
   IGetHeroesResponse,
   IInsertNewHeroResponse,
   IUpdateHeroResponse,
+  IDeleteHeroResponse,
 } from './graphql/interface';
 import { HERO_RATING_MUTATION } from './graphql/mutations/heroRating.mutation';
 import _ from 'lodash';
 import { INSERT_HERO_MUTATION } from './graphql/mutations/insertHero.mutation';
+import { DELETE_HERO_MUTATION } from './graphql/mutations/deleteHero.mutation';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
-  public heroes: IDbHeroSnapshotIn[] = [];
   public heroesOrderedByRating: IDbHeroSnapshotIn[] = [];
   public fetchHeroesOrderedByRatingQuery:
     | QueryRef<IGetHeroesResponse>
@@ -37,18 +38,6 @@ export class HeroService {
     } else {
       this.fetched_all_heroes = false;
     }
-  }
-
-  fetchHeroes(): void {
-    this.apollo
-      .watchQuery<IGetHeroesResponse>({
-        query: GET_HEROES,
-      })
-      .valueChanges.subscribe(({ data, loading }) => {
-        if (!loading) {
-          this.heroes = data.heroes;
-        }
-      });
   }
 
   fetchHeroesOrderedByRating(offset = 0): void {
@@ -137,6 +126,24 @@ export class HeroService {
       });
   }
 
+  deleteHero(id: string): void {
+    this.apollo
+      .mutate<IDeleteHeroResponse>({
+        mutation: DELETE_HERO_MUTATION,
+        variables: {
+          id,
+        },
+      })
+      .subscribe({
+        next: (data) => {
+          const deleted_id = data.data?.delete_heroes.returning[0].id;
+          this.heroesOrderedByRating.filter((hero) => hero.id !== deleted_id);
+        },
+        error: (e) => console.error(e),
+        complete: () => console.info('hero deleted'),
+      });
+  }
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -150,32 +157,6 @@ export class HeroService {
       );
 
     return response;
-  }
-
-  addHero(hero: IDbHeroSnapshotIn): void /* Observable<IDbHeroSnapshotIn> */ {
-    this.heroes.push(hero);
-    // return this.http
-    //   .post<IDbHeroSnapshotIn>(environment.SRV_HASURA, hero, this.httpOptions)
-    //   .pipe(
-    //     tap((newHero: IDbHeroSnapshotIn) =>
-    //       console.log(`added hero w/ id=${newHero.id}`)
-    //     ),
-    //     catchError(
-    //       this.handleError<IDbHeroSnapshotIn>('addHero', { id: '', name: '' })
-    //     )
-    //   );
-  }
-
-  deleteHero(id: string): Observable<IDbHeroSnapshotIn> {
-    console.log('id', id);
-    const url = `${environment.SRV_HASURA}/${id}`;
-    // this.heroes = this.heroes.filter((h) => h.id !== id);
-    return this.http.delete<IDbHeroSnapshotIn>(url, this.httpOptions).pipe(
-      tap((hero: IDbHeroSnapshotIn) => console.log('deleted hero:', hero)),
-      catchError(
-        this.handleError<IDbHeroSnapshotIn>('deleteHero', { id: '', name: '' })
-      )
-    );
   }
 
   /* GET heroes whose name contains search term */

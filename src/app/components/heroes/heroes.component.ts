@@ -37,7 +37,7 @@ export class HeroesComponent implements OnInit {
   }
 
   get heroes(): IDbHeroSnapshotIn[] {
-    return this.heroService.heroes.filter((hero) =>
+    return this.heroService.heroesOrderedByRating.filter((hero) =>
       _.lowerCase(hero.name.trim()).includes(
         _.lowerCase(this.input_data.trim())
       )
@@ -49,7 +49,7 @@ export class HeroesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.heroService.fetchHeroes();
+    this.heroService.fetchHeroesOrderedByRating();
     // console.log('this.heroService.heroes', this.heroService.heroes);
   }
 }
