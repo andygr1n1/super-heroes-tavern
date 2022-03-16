@@ -20,6 +20,13 @@ export interface IUpdateHeroResponse {
     }[];
   };
 }
+export interface IDeleteHeroResponse {
+  delete_heroes: {
+    returning: {
+      id: string;
+    }[];
+  };
+}
 
 export interface IInsertNewHeroResponse {
   insert_heroes: {

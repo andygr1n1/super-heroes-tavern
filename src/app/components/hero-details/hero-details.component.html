@@ -37,13 +37,13 @@
       />
     </div>
   </div>
-  <!-- footer -->
+  <!-- footer  (click)="deleteHero(hero.id)" -->
   <div class="flex flex-shrink-0 flex-grow-0 gap-5">
     <button
       title="delete hero"
       mat-raised-button
       class="bg-red-500 h-14 w-32 text-white"
-      (click)="deleteHero(hero.id)"
+      (click)="confirmDeleteDialog()"
     >
       Delete hero
     </button>
@@ -51,7 +51,7 @@
       title="edit hero info"
       mat-raised-button
       class="bg-blue-600 h-14 w-32 text-white"
-      (click)="deleteHero(hero.id)"
+      (click)="confirmDeleteDialog()"
     >
       Edit Hero
     </button>

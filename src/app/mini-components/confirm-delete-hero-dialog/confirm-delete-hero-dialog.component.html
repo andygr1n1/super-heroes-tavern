@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Deleting a Super Hero</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>
+    To delete this Super Hero, type his name in the input below and press
+    <span class="text-red-600 font-bold hover:text-red-500">"Delete"</span>
+  </h3>
+  <input
+    [(ngModel)]="input_data"
+    placeholder="name"
+    class="p-3 border-2 border-red-600 rounded-md focus:border-red-500 focus:outline-none"
+  />
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    [disabled]="!isDisabled"
+    mat-button
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+    (click)="deleteHero()"
+    class="!bg-red-600 !text-white disabled:!bg-gray-200 disabled:!text-gray-400 disabled:cursor-not-allowed"
+  >
+    Delete
+  </button>
+</mat-dialog-actions>

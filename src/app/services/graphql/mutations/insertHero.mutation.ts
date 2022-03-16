@@ -1,7 +1,7 @@
 import { gql } from 'apollo-angular';
 
 export const INSERT_HERO_MUTATION = gql`
-  mutation insert_hero_mutation(
+  mutation InsertHero(
     $id: uuid
     $gender: String
     $name: String
