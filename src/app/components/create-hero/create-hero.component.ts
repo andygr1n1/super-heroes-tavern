@@ -1,5 +1,6 @@
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { v4 as uuid } from 'uuid';
 import { finalize, Subscription } from 'rxjs';
 import { HeroService } from 'src/app/services/hero.service';
@@ -22,7 +23,13 @@ export class CreateHeroComponent implements OnInit {
   species = '';
   photo = '';
 
-  constructor(private heroService: HeroService, private http: HttpClient) {}
+  editing_hero: IDbHeroSnapshotIn | undefined;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private heroService: HeroService,
+    private http: HttpClient
+  ) {}
 
   cancelUpload() {
     this.uploadSub?.unsubscribe();
@@ -113,5 +120,10 @@ export class CreateHeroComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      if (!params['id']) return;
+      this.heroService.getHeroById(params['id']);
+    });
+  }
 }

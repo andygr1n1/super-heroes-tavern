@@ -17,6 +17,7 @@ import { HERO_RATING_MUTATION } from './graphql/mutations/heroRating.mutation';
 import _ from 'lodash';
 import { INSERT_HERO_MUTATION } from './graphql/mutations/insertHero.mutation';
 import { DELETE_HERO_MUTATION } from './graphql/mutations/deleteHero.mutation';
+import { GET_HERO_BY_ID } from './graphql/queries/getHeroById';
 
 @Injectable({
   providedIn: 'root',
@@ -24,9 +25,7 @@ import { DELETE_HERO_MUTATION } from './graphql/mutations/deleteHero.mutation';
 export class HeroService {
   public allHeroes: IDbHeroSnapshotIn[] = [];
   public heroesOrderedByRating: IDbHeroSnapshotIn[] = [];
-  public fetchAllHeroesQuery:
-    | QueryRef<IGetHeroesResponse>
-    | undefined;
+  public fetchAllHeroesQuery: QueryRef<IGetHeroesResponse> | undefined;
   public fetchHeroesOrderedByRatingQuery:
     | QueryRef<IGetHeroesResponse>
     | undefined;
@@ -69,7 +68,7 @@ export class HeroService {
           this.heroesOrderedByRating = data.heroes.map((hero, index) => {
             return { ...hero, rating_place: index + 1 };
           });
-          
+
           this.validateAllFetchedHeroesLength(
             data.heroes_aggregate.aggregate.count
           );
@@ -103,6 +102,21 @@ export class HeroService {
         );
       }
     });
+  }
+
+  getHeroById(id: string): void {
+    this.apollo
+      .watchQuery<{ heroes: IDbHeroSnapshotIn[] }>({
+        query: GET_HERO_BY_ID,
+        variables: {
+          id,
+        },
+      })
+      .valueChanges.subscribe(({ data, loading }) => {
+        if (!loading) {
+          console.table(data.heroes[0]);
+        }
+      });
   }
 
   updateHeroRating(id: string, rate: number): void {
