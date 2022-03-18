@@ -18,18 +18,29 @@ export class CreateHeroComponent implements OnInit {
   uploadSub: Subscription | undefined;
 
   logo_title = 'Hero facktory';
+  id = '';
   name = '';
   gender = '';
   species = '';
   photo = '';
 
-  editing_hero: IDbHeroSnapshotIn | undefined;
+  is_edit_mode = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private heroService: HeroService,
     private http: HttpClient
   ) {}
+
+  applyEditHeroData(hero: IDbHeroSnapshotIn | undefined): void {
+    if (!hero) return;
+    this.id = hero.id;
+    this.name = hero.name;
+    this.gender = hero.gender ?? '';
+    this.species = hero.species ?? '';
+    this.photo = hero.photo ?? '';
+    this.uploaded_img = `${environment.SRV_NODE}${hero.photo}`;
+  }
 
   cancelUpload() {
     this.uploadSub?.unsubscribe();
@@ -59,6 +70,26 @@ export class CreateHeroComponent implements OnInit {
     this.clearData();
 
     console.log('hero added');
+  }
+
+  updateHero(): void {
+    if (!this.name) {
+      return;
+    }
+
+    const updatedHero: IDbHeroSnapshotIn = {
+      id: this.id,
+      name: this.name.trim(),
+      gender: this.gender.trim(),
+      species: this.species.trim(),
+      photo: this.photo,
+    };
+
+    // this.heroService.addHero(newHero).subscribe();
+    this.heroService.updateExistingHero(updatedHero);
+    this.clearData();
+
+    console.log('hero updated');
   }
 
   clearData(): void {
@@ -121,9 +152,19 @@ export class CreateHeroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.is_edit_mode = false;
+
     this.activatedRoute.params.subscribe((params) => {
       if (!params['id']) return;
-      this.heroService.getHeroById(params['id']);
+      this.heroService
+        .getHeroById(params['id'])
+        .valueChanges.subscribe(({ data, loading }) => {
+          if (!loading) {
+            console.table(data.heroes[0]);
+            this.applyEditHeroData(data.heroes[0]);
+          }
+        });
+      this.is_edit_mode = true;
     });
   }
 }

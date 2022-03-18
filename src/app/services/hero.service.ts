@@ -12,12 +12,15 @@ import {
   IInsertNewHeroResponse,
   IUpdateHeroResponse,
   IDeleteHeroResponse,
+  IUpdateExistingHeroResponse,
 } from './graphql/interface';
 import { HERO_RATING_MUTATION } from './graphql/mutations/heroRating.mutation';
 import _ from 'lodash';
 import { INSERT_HERO_MUTATION } from './graphql/mutations/insertHero.mutation';
 import { DELETE_HERO_MUTATION } from './graphql/mutations/deleteHero.mutation';
 import { GET_HERO_BY_ID } from './graphql/queries/getHeroById';
+import { UPDATE_HERO_MUTATION } from './graphql/mutations/updateHero.mutation';
+import { EmptyObject } from 'apollo-angular/build/types';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +33,8 @@ export class HeroService {
     | QueryRef<IGetHeroesResponse>
     | undefined;
   public fetched_all_heroes = false;
+
+  public editHero: IDbHeroSnapshotIn | undefined;
 
   constructor(private http: HttpClient, private apollo: Apollo) {}
 
@@ -104,19 +109,15 @@ export class HeroService {
     });
   }
 
-  getHeroById(id: string): void {
-    this.apollo
-      .watchQuery<{ heroes: IDbHeroSnapshotIn[] }>({
-        query: GET_HERO_BY_ID,
-        variables: {
-          id,
-        },
-      })
-      .valueChanges.subscribe(({ data, loading }) => {
-        if (!loading) {
-          console.table(data.heroes[0]);
-        }
-      });
+  getHeroById(
+    id: string
+  ): QueryRef<{ heroes: IDbHeroSnapshotIn[] }, EmptyObject> {
+    return this.apollo.watchQuery<{ heroes: IDbHeroSnapshotIn[] }>({
+      query: GET_HERO_BY_ID,
+      variables: {
+        id,
+      },
+    });
   }
 
   updateHeroRating(id: string, rate: number): void {
@@ -140,6 +141,32 @@ export class HeroService {
     this.apollo
       .mutate<IInsertNewHeroResponse>({
         mutation: INSERT_HERO_MUTATION,
+        variables: {
+          id,
+          name,
+          gender,
+          species,
+          photo,
+        },
+      })
+      .subscribe({
+        next: (v) => console.log(v),
+        error: (e) => console.error(e),
+        complete: () => console.info('complete'),
+      });
+  }
+
+  updateExistingHero({
+    id,
+    name,
+    gender,
+    species,
+    photo,
+  }: IDbHeroSnapshotIn): void {
+    console.log('vars:::', id, name, gender, species, photo);
+    this.apollo
+      .mutate<IUpdateExistingHeroResponse>({
+        mutation: UPDATE_HERO_MUTATION,
         variables: {
           id,
           name,
