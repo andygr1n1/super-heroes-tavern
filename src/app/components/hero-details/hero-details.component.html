@@ -50,8 +50,9 @@
     <button
       title="edit hero info"
       mat-raised-button
+      [mat-dialog-close]="true"
       class="bg-blue-600 h-14 w-32 text-white"
-      (click)="confirmDeleteDialog()"
+      (click)="redirectHeroFacktory()"
     >
       Edit Hero
     </button>

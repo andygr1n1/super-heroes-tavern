@@ -80,6 +80,7 @@
         >
       </div>
       <button
+        *ngIf="!is_edit_mode; else editHeroButton"
         disabled="{{ !name.length }}"
         title="{{
           !name.length ? 'Provide a name for the Hero' : 'Create Hero'
@@ -91,6 +92,20 @@
       >
         Create hero
       </button>
+      <ng-template #editHeroButton
+        ><button
+          disabled="{{ !name.length }}"
+          title="{{
+            !name.length ? 'Provide a name for the Hero' : 'Create Hero'
+          }}"
+          type="button"
+          mat-raised-button
+          (click)="updateHero()"
+          class="w-40 !py-4 bg-blue-900 text-white disabled:!bg-gray-300"
+        >
+          Edit hero
+        </button></ng-template
+      >
     </div>
   </div>
 </div>

@@ -35,3 +35,11 @@ export interface IInsertNewHeroResponse {
     }[];
   };
 }
+
+export interface IUpdateExistingHeroResponse {
+  insert_heroes: {
+    returning: {
+      id: string;
+    }[];
+  };
+}
