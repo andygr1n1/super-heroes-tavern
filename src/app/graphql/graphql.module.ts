@@ -4,8 +4,9 @@ import { ApolloModule, Apollo, APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache, ApolloLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
+import { environment } from 'src/environments/environment';
 
-const uri = 'http://localhost:8088/v1/graphql';
+const uri = environment.SRV_HASURA;
 
 export function createApollo(httpLink: HttpLink) {
   const basic = setContext((operation, context) => ({

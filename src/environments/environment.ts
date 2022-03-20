@@ -5,7 +5,12 @@
 export const environment = {
   production: false,
   SRV_NODE: 'http://localhost:6789/',
-  SRV_NODE_UPLOAD_HERO_IMAGE: 'http://localhost:6789/api/upload-hero-image',
+  // SRV_NODE: 'https://morning-brushlands-33324.herokuapp.com/',
+  // SRV_NODE_UPLOAD_HERO_IMAGE:
+  //   'https://morning-brushlands-33324.herokuapp.com/api/upload-hero-image',
+  SRV_NODE_UPLOAD_HERO_IMAGE: 'http://localhost:6789//api/upload-hero-image',
+  // SRV_HASURA: 'https://srv-hasura-superheroes.herokuapp.com/v1/graphql',
+  // SRV_HASURA: 'https://srv-hasura-superheroes.herokuapp.com/v1/graphql',
   SRV_HASURA: 'http://localhost:8088/v1/graphql',
 };
 
